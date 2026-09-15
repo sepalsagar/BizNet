@@ -1703,58 +1703,83 @@ export const initialPurchaseOrders: PurchaseOrder[] = [
 
 // Keep the built-in demo cohesive for the Indian market while preserving all IDs and numeric relationships.
 const demoSupplierLocalization: Record<string, { name: string; contactPerson: string; email: string; phone: string }> = {
-  'sup-1': { name: 'BharatTech Components', contactPerson: 'Vikram Malhotra', email: 'vikram@bharattech.in', phone: '+91 98765 23451' },
-  'sup-2': { name: 'Sahyadri Home Essentials', contactPerson: 'Meera Kulkarni', email: 'orders@sahyadrihome.in', phone: '+91 98765 34562' },
+  'sup-1': { name: 'Kolkata Tech Distributors', contactPerson: 'Vikram Malhotra', email: 'vikram@kolkatatech.in', phone: '+91 98765 23451' },
+  'sup-2': { name: 'Maa Durga Home Supplies', contactPerson: 'Meera Kulkarni', email: 'orders@maadurga.in', phone: '+91 98765 34562' },
   'sup-3': { name: 'Kaveri Textile Works', contactPerson: 'Nikhil Rao', email: 'nikhil@kaveritextiles.in', phone: '+91 98765 45673' },
   'sup-4': { name: 'Prakriti Wellness Labs', contactPerson: 'Ananya Iyer', email: 'ananya@prakritiwellness.in', phone: '+91 98765 56784' },
-  'sup-5': { name: 'Trident Industrial Supply', contactPerson: 'Suresh Bhat', email: 'suresh@tridentindustrial.in', phone: '+91 98765 67895' },
-  'sup-6': { name: 'Deccan Cable & Power', contactPerson: 'Rohit Menon', email: 'rohit@deccancables.in', phone: '+91 98765 78906' },
+  'sup-5': { name: 'Shree Ganesh Trading Co.', contactPerson: 'Suresh Bhat', email: 'suresh@shreeganeshtrading.in', phone: '+91 98765 67895' },
+  'sup-6': { name: 'Eastern Electricals & Hardware', contactPerson: 'Rohit Menon', email: 'rohit@eastern-electricals.in', phone: '+91 98765 78906' },
   'sup-7': { name: 'Mitti Craft Furnishings', contactPerson: 'Karan Joshi', email: 'orders@mitticraft.in', phone: '+91 98765 89017' },
   'sup-8': { name: 'Swasthya Naturals', contactPerson: 'Dr. Kavya Shah', email: 'kavya@swasthyanaturals.in', phone: '+91 98765 90128' },
 };
 
 const demoCustomerLocalization: Record<string, { name: string; email: string; phone: string; company?: string; location: string }> = {
-  'cust-1': { name: 'Neha Kapoor', email: 'neha@meridianadvisory.in', phone: '+91 98760 11223', company: 'Meridian Advisory', location: 'Mumbai, Maharashtra' },
+  'cust-1': { name: 'Neha Kapoor', email: 'neha@meridianadvisory.in', phone: '+91 98760 11223', company: 'Meridian Business Advisory', location: 'Mumbai, Maharashtra' },
   'cust-2': { name: 'Aarav Menon', email: 'aarav@horizoncreative.in', phone: '+91 98760 22334', company: 'Horizon Creative Studio', location: 'Bengaluru, Karnataka' },
   'cust-3': { name: 'Saanvi Retail House', email: 'procurement@saanviretail.in', phone: '+91 98760 33445', company: 'Saanvi Retail House', location: 'Kolkata, West Bengal' },
-  'cust-4': { name: 'Rohan Mehta', email: 'rohan@novatechsystems.in', phone: '+91 98760 44556', company: 'NovaTech Systems', location: 'Pune, Maharashtra' },
-  'cust-5': { name: 'Ishita Verma', email: 'ishita@vanguardops.in', phone: '+91 98760 55667', company: 'Vanguard Operations', location: 'Delhi, Delhi' },
+  'cust-4': { name: 'Rohan Mehta', email: 'rohan@novatechsystems.in', phone: '+91 98760 44556', company: 'NovaTech Systems India', location: 'Pune, Maharashtra' },
+  'cust-5': { name: 'Ishita Verma', email: 'ishita@shaktilogistics.in', phone: '+91 98760 55667', company: 'Shakti Logistics & Operations', location: 'Delhi, Delhi' },
   'cust-6': { name: 'UrbanNest Workspaces', email: 'supplies@urbannest.in', phone: '+91 98760 66778', company: 'UrbanNest Workspaces', location: 'Hyderabad, Telangana' },
-  'cust-7': { name: 'Kabir Sen', email: 'kabir@senarchitects.in', phone: '+91 98760 77889', company: 'Sen Architecture Partners', location: 'Chennai, Tamil Nadu' },
+  'cust-7': { name: 'Kabir Sen', email: 'kabir@senarchitects.in', phone: '+91 98760 77889', company: 'Sen Design & Architecture', location: 'Chennai, Tamil Nadu' },
   'cust-8': { name: 'Diya Nair', email: 'diya.nair@gmail.com', phone: '+91 98760 88990', location: 'Kochi, Kerala' },
-  'cust-9': { name: 'Aditya Patel', email: 'aditya@horizonventures.in', phone: '+91 98760 99001', company: 'Horizon Ventures', location: 'Ahmedabad, Gujarat' },
+  'cust-9': { name: 'Aditya Patel', email: 'aditya@horizonventures.in', phone: '+91 98760 99001', company: 'Horizon Ventures India', location: 'Ahmedabad, Gujarat' },
   'cust-10': { name: 'Tara Das', email: 'tara@luminatehealth.in', phone: '+91 98111 10203', location: 'Patna, Bihar' },
   'cust-11': { name: 'Arjun Coffee Collective', email: 'orders@arjuncoffee.in', phone: '+91 98111 21314', company: 'Arjun Coffee Collective', location: 'Mysuru, Karnataka' },
   'cust-12': { name: 'Priya Bose', email: 'priya@cloudscale.in', phone: '+91 98111 32425', location: 'Bhubaneswar, Odisha' },
   'cust-13': { name: 'Dev Khanna', email: 'dev.khanna@gmail.com', phone: '+91 98111 43536', location: 'Jaipur, Rajasthan' },
-  'cust-14': { name: 'Kavya Rao', email: 'kavya@zenithadvisors.in', phone: '+91 98111 54647', company: 'Zenith Strategic Advisors', location: 'Gurugram, Haryana' },
+  'cust-14': { name: 'Kavya Rao', email: 'kavya@zenithadvisors.in', phone: '+91 98111 54647', company: 'Zenith Business Advisors', location: 'Gurugram, Haryana' },
   'cust-15': { name: 'Manav Gupta', email: 'manav@urbankitchen.in', phone: '+91 98111 65758', company: 'Urban Kitchen Collective', location: 'Lucknow, Uttar Pradesh' },
   'cust-16': { name: 'Anika Joshi', email: 'anika@summitathletics.in', phone: '+91 98111 76869', location: 'Chandigarh, Punjab' },
 };
 
 const demoProductNames: Record<string, string> = {
-  'prod-1': 'Silent Mechanical Office Keyboard',
-  'prod-2': 'Studio Wireless ANC Headphones',
-  'prod-3': '100W GaN Multi-Port Fast Charger',
-  'prod-4': 'Thunderbolt Multi-Port Docking Station',
-  'prod-5': 'Cardioid USB Podcast Microphone',
+  'prod-1': '20W USB-C Fast Charger',
+  'prod-2': 'Wireless Bluetooth Headphones',
+  'prod-3': '100W Multi-Port Fast Charger',
+  'prod-4': 'USB-C Laptop Docking Station',
+  'prod-5': 'USB Conference Microphone',
   'prod-6': 'Ergonomic Mesh Office Chair',
-  'prod-7': 'Minimalist LED Desk Lamp',
-  'prod-8': 'Solid Sheesham Desktop Riser',
-  'prod-9': 'Double-Wall Steel Travel Tumbler',
-  'prod-10': 'Ceramic Filter Coffee Dripper',
-  'prod-11': 'Handloom Cotton Button-Down Shirt',
-  'prod-12': 'Merino Blend Everyday Crewneck',
-  'prod-13': 'Waterproof Commuter Backpack',
-  'prod-14': 'Full-Grain Leather Card Wallet',
-  'prod-15': 'Single-Origin Coorg Arabica Coffee',
-  'prod-16': 'Cold-Pressed Indian Sesame Oil',
-  'prod-17': 'Plant Protein Isolate Vanilla',
+  'prod-7': 'LED Desk Lamp with USB Port',
+  'prod-8': 'Sheesham Desktop Storage Riser',
+  'prod-9': 'Stainless Steel Water Bottle 1L',
+  'prod-10': 'Stainless Steel Tea Strainer Set',
+  'prod-11': 'Cotton Office Polo Shirt',
+  'prod-12': 'Cotton Casual Crewneck T-Shirt',
+  'prod-13': 'Waterproof Office Backpack',
+  'prod-14': 'Leather Card Wallet',
+  'prod-15': 'Darjeeling Arabica Coffee 250g',
+  'prod-16': 'Cold-Pressed Sesame Oil 1L',
+  'prod-17': 'Plant Protein Powder 1kg',
   'prod-18': 'Darjeeling Green Tea 100g',
   'prod-19': 'Modular Warehouse Storage Bins',
   'prod-20': 'Precision Hardware Repair Kit',
-  'prod-21': 'Thermal Shipping Label Printer',
-  'prod-22': 'Reusable Beeswax Food Wraps 3pk',
+  'prod-21': 'Thermal Receipt Printer',
+  'prod-22': 'Reusable Food Storage Wraps',
+};
+
+const demoProductPricing: Record<string, { costPrice: number; sellingPrice: number }> = {
+  'prod-1': { costPrice: 650, sellingPrice: 1299 },
+  'prod-2': { costPrice: 1800, sellingPrice: 3499 },
+  'prod-3': { costPrice: 1450, sellingPrice: 2999 },
+  'prod-4': { costPrice: 4200, sellingPrice: 7999 },
+  'prod-5': { costPrice: 1850, sellingPrice: 3999 },
+  'prod-6': { costPrice: 8500, sellingPrice: 14999 },
+  'prod-7': { costPrice: 900, sellingPrice: 1899 },
+  'prod-8': { costPrice: 2100, sellingPrice: 3999 },
+  'prod-9': { costPrice: 280, sellingPrice: 699 },
+  'prod-10': { costPrice: 220, sellingPrice: 549 },
+  'prod-11': { costPrice: 650, sellingPrice: 1299 },
+  'prod-12': { costPrice: 480, sellingPrice: 999 },
+  'prod-13': { costPrice: 1100, sellingPrice: 2499 },
+  'prod-14': { costPrice: 350, sellingPrice: 899 },
+  'prod-15': { costPrice: 420, sellingPrice: 899 },
+  'prod-16': { costPrice: 520, sellingPrice: 1099 },
+  'prod-17': { costPrice: 1250, sellingPrice: 2499 },
+  'prod-18': { costPrice: 380, sellingPrice: 799 },
+  'prod-19': { costPrice: 900, sellingPrice: 1999 },
+  'prod-20': { costPrice: 650, sellingPrice: 1499 },
+  'prod-21': { costPrice: 3800, sellingPrice: 6999 },
+  'prod-22': { costPrice: 250, sellingPrice: 599 },
 };
 
 Object.entries(demoSupplierLocalization).forEach(([supplierId, localized]) => {
@@ -1769,7 +1794,8 @@ Object.entries(demoCustomerLocalization).forEach(([customerId, localized]) => {
 
 Object.entries(demoProductNames).forEach(([productId, name]) => {
   const product = initialProducts.find((item) => item.id === productId);
-  if (product) product.name = name;
+  const pricing = demoProductPricing[productId];
+  if (product) Object.assign(product, { name, ...pricing });
 });
 
 initialProducts.forEach((product) => {
@@ -1779,14 +1805,27 @@ initialProducts.forEach((product) => {
 
 initialOrders.forEach((order) => {
   const customer = initialCustomers.find((item) => item.id === order.customerId);
+  let totalAmount = 0;
+  let totalCost = 0;
   if (customer) {
     order.customerName = customer.name;
     order.customerEmail = customer.email;
   }
   order.items.forEach((item) => {
     const product = initialProducts.find((entry) => entry.id === item.productId);
-    if (product) item.productName = product.name;
+    if (!product) return;
+    item.productName = product.name;
+    item.unitPrice = product.sellingPrice;
+    item.unitCost = product.costPrice;
+    item.subtotal = product.sellingPrice * item.quantity;
+    item.profit = item.subtotal - (product.costPrice * item.quantity);
+    totalAmount += item.subtotal;
+    totalCost += product.costPrice * item.quantity;
   });
+  order.totalAmount = totalAmount;
+  order.totalCost = totalCost;
+  order.grossProfit = totalAmount - totalCost;
+  order.profitMargin = totalAmount > 0 ? (order.grossProfit / totalAmount) * 100 : 0;
 });
 
 initialPurchaseOrders.forEach((purchaseOrder) => {
@@ -1797,7 +1836,12 @@ initialPurchaseOrders.forEach((purchaseOrder) => {
   }
   purchaseOrder.items.forEach((item) => {
     const product = initialProducts.find((entry) => entry.id === item.productId);
-    if (product) item.productName = product.name;
+    if (product) {
+      item.productName = product.name;
+      item.unitCost = product.costPrice;
+      item.subtotal = product.costPrice * item.quantity;
+    }
   });
+  purchaseOrder.totalAmount = purchaseOrder.items.reduce((sum, item) => sum + item.subtotal, 0);
 });
 

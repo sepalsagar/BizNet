@@ -128,6 +128,9 @@ const WORKSPACE_IDS: Record<WorkspaceMode, string> = {
   client: 'client',
 };
 
+const DEMO_SEED_VERSION = 'indian-smb-v2';
+const DEMO_SEED_VERSION_KEY = 'bizpilot:demo:seed-version';
+
 const createWorkspace = (mode: WorkspaceMode): WorkspaceIdentity => ({
   mode,
   id: WORKSPACE_IDS[mode],
@@ -160,6 +163,31 @@ const readStoredCollection = <T,>(
   return cloneData(fallback);
 };
 
+const demoStorageContainsWesternSeed = (): boolean => {
+  const values = [
+    localStorage.getItem(workspaceStorageKey(createWorkspace('demo'), 'products')),
+    localStorage.getItem(workspaceStorageKey(createWorkspace('demo'), 'customers')),
+    localStorage.getItem(workspaceStorageKey(createWorkspace('demo'), 'suppliers')),
+    localStorage.getItem(workspaceStorageKey(createWorkspace('demo'), 'settings')),
+    localStorage.getItem(LEGACY_STORAGE_KEYS.PRODUCTS),
+    localStorage.getItem(LEGACY_STORAGE_KEYS.CUSTOMERS),
+    localStorage.getItem(LEGACY_STORAGE_KEYS.SUPPLIERS),
+    localStorage.getItem(LEGACY_STORAGE_KEYS.SETTINGS),
+  ].filter(Boolean).join(' ');
+
+  return /Apex Precision|Nordic Eco|Pacific Textile|Terra Organics|Vanguard Industrial|\+1 \(555\)|Sarah Jenkins|Emma Watson-Reid|USD|"currencySymbol":"\$"/.test(values);
+};
+
+const shouldRefreshDemoSeed = (): boolean => {
+  if (localStorage.getItem(DEMO_SEED_VERSION_KEY) === DEMO_SEED_VERSION) return false;
+
+  const scopedDemoKeys = ['products', 'customers', 'orders', 'suppliers', 'purchaseOrders', 'settings']
+    .map((collection) => workspaceStorageKey(createWorkspace('demo'), collection));
+  const hasScopedDemoData = scopedDemoKeys.some((key) => localStorage.getItem(key) !== null);
+
+  return hasScopedDemoData || demoStorageContainsWesternSeed();
+};
+
 interface WorkspaceData {
   products: Product[];
   customers: Customer[];
@@ -169,14 +197,29 @@ interface WorkspaceData {
   settings: BusinessSettings;
 }
 
-const getWorkspaceData = (workspace: WorkspaceIdentity): WorkspaceData => ({
-  products: readStoredCollection(workspace, 'products', workspace.mode === 'demo' ? initialProducts : [], LEGACY_STORAGE_KEYS.PRODUCTS),
-  customers: readStoredCollection(workspace, 'customers', workspace.mode === 'demo' ? initialCustomers : [], LEGACY_STORAGE_KEYS.CUSTOMERS),
-  orders: readStoredCollection(workspace, 'orders', workspace.mode === 'demo' ? initialOrders : [], LEGACY_STORAGE_KEYS.ORDERS),
-  suppliers: readStoredCollection(workspace, 'suppliers', workspace.mode === 'demo' ? initialSuppliers : [], LEGACY_STORAGE_KEYS.SUPPLIERS),
-  purchaseOrders: readStoredCollection(workspace, 'purchaseOrders', workspace.mode === 'demo' ? initialPurchaseOrders : [], LEGACY_STORAGE_KEYS.PURCHASE_ORDERS),
-  settings: readStoredCollection(workspace, 'settings', initialSettings, LEGACY_STORAGE_KEYS.SETTINGS),
-});
+const getWorkspaceData = (workspace: WorkspaceIdentity): WorkspaceData => {
+  const refreshDemo = workspace.mode === 'demo' && shouldRefreshDemoSeed();
+
+  if (refreshDemo) {
+    return {
+      products: cloneData(initialProducts),
+      customers: cloneData(initialCustomers),
+      orders: cloneData(initialOrders),
+      suppliers: cloneData(initialSuppliers),
+      purchaseOrders: cloneData(initialPurchaseOrders),
+      settings: cloneData(initialSettings),
+    };
+  }
+
+  return {
+    products: readStoredCollection(workspace, 'products', workspace.mode === 'demo' ? initialProducts : [], LEGACY_STORAGE_KEYS.PRODUCTS),
+    customers: readStoredCollection(workspace, 'customers', workspace.mode === 'demo' ? initialCustomers : [], LEGACY_STORAGE_KEYS.CUSTOMERS),
+    orders: readStoredCollection(workspace, 'orders', workspace.mode === 'demo' ? initialOrders : [], LEGACY_STORAGE_KEYS.ORDERS),
+    suppliers: readStoredCollection(workspace, 'suppliers', workspace.mode === 'demo' ? initialSuppliers : [], LEGACY_STORAGE_KEYS.SUPPLIERS),
+    purchaseOrders: readStoredCollection(workspace, 'purchaseOrders', workspace.mode === 'demo' ? initialPurchaseOrders : [], LEGACY_STORAGE_KEYS.PURCHASE_ORDERS),
+    settings: readStoredCollection(workspace, 'settings', initialSettings, LEGACY_STORAGE_KEYS.SETTINGS),
+  };
+};
 
 const saveWorkspaceData = (workspace: WorkspaceIdentity, data: WorkspaceData) => {
   localStorage.setItem(workspaceStorageKey(workspace, 'products'), JSON.stringify(data.products));
@@ -296,6 +339,12 @@ export const BusinessProvider: React.FC<{ children: ReactNode }> = ({ children }
   useEffect(() => {
     localStorage.setItem(workspaceStorageKey(workspace, 'settings'), JSON.stringify(settings));
   }, [settings, workspace]);
+
+  useEffect(() => {
+    if (workspace.mode === 'demo') {
+      localStorage.setItem(DEMO_SEED_VERSION_KEY, DEMO_SEED_VERSION);
+    }
+  }, [workspace]);
 
   // Utility formatters
   const formatCurrency = (amount: number) => {

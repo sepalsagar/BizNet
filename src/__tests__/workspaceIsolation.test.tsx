@@ -3,7 +3,14 @@ import { renderHook, act } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { BusinessProvider, useBusiness } from '../context/BusinessContext';
-import { initialProducts } from '../data/initialData';
+import {
+  initialCustomers,
+  initialOrders,
+  initialProducts,
+  initialPurchaseOrders,
+  initialSettings,
+  initialSuppliers,
+} from '../data/initialData';
 
 const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <MemoryRouter initialEntries={['/dashboard']}>
@@ -23,6 +30,55 @@ describe('workspace data isolation', () => {
     expect(result.current.products.length).toBe(initialProducts.length);
     expect(result.current.customers.length).toBeGreaterThan(0);
     expect(result.current.settings.currency).toBe('INR');
+    expect(result.current.settings.currencySymbol).toBe('₹');
+    expect(result.current.suppliers.every((supplier) => supplier.phone.startsWith('+91 '))).toBe(true);
+    expect(result.current.customers.every((customer) => customer.phone.startsWith('+91 '))).toBe(true);
+    expect(result.current.products.some((product) => product.name === '20W USB-C Fast Charger')).toBe(true);
+    expect(result.current.suppliers.some((supplier) => supplier.name === 'Kolkata Tech Distributors')).toBe(true);
+    const serializedDemo = JSON.stringify(result.current);
+    expect(serializedDemo).not.toContain('Apex Precision Electronics');
+    expect(serializedDemo).not.toContain('+1 (555)');
+    expect(serializedDemo).not.toContain('Sarah Jenkins');
+    expect(result.current.orders.every((order) => order.items.every((item) => item.unitPrice > 100))).toBe(true);
+  });
+
+  it('keeps the seed IDs and relationships intact after localization', () => {
+    expect(initialSettings.currency).toBe('INR');
+    expect(initialSettings.currencySymbol).toBe('₹');
+    expect(initialProducts.map((product) => product.id)).toEqual(expect.arrayContaining(['prod-1', 'prod-22']));
+    expect(initialSuppliers.map((supplier) => supplier.id)).toEqual(expect.arrayContaining(['sup-1', 'sup-8']));
+    expect(initialCustomers.map((customer) => customer.id)).toEqual(expect.arrayContaining(['cust-1', 'cust-16']));
+
+    initialProducts.forEach((product) => {
+      expect(initialSuppliers.some((supplier) => supplier.id === product.supplierId)).toBe(true);
+    });
+    initialOrders.forEach((order) => {
+      expect(initialCustomers.some((customer) => customer.id === order.customerId)).toBe(true);
+      order.items.forEach((item) => expect(initialProducts.some((product) => product.id === item.productId)).toBe(true));
+    });
+    initialPurchaseOrders.forEach((purchaseOrder) => {
+      expect(initialSuppliers.some((supplier) => supplier.id === purchaseOrder.supplierId)).toBe(true);
+      purchaseOrder.items.forEach((item) => expect(initialProducts.some((product) => product.id === item.productId)).toBe(true));
+    });
+  });
+
+  it('refreshes an old scoped Western demo snapshot without touching client storage', () => {
+    localStorage.setItem('bizpilot:demo:settings:v1', JSON.stringify({ ...initialSettings, currency: 'USD', currencySymbol: '$' }));
+    localStorage.setItem('bizpilot:demo:products:v1', JSON.stringify([{ ...initialProducts[0], name: 'Silent Mechanical Desk Keyboard', supplierName: 'Apex Precision Electronics' }]));
+    const clientProduct = { ...initialProducts[1], id: 'client-product-1' };
+    localStorage.setItem('bizpilot:client:products:v1', JSON.stringify([clientProduct]));
+
+    const { result } = renderHook(() => useBusiness(), { wrapper });
+
+    expect(result.current.settings.currency).toBe('INR');
+    expect(result.current.settings.currencySymbol).toBe('₹');
+    expect(result.current.products).toHaveLength(initialProducts.length);
+    expect(result.current.products.some((product) => product.name === 'Silent Mechanical Desk Keyboard')).toBe(false);
+
+    act(() => {
+      result.current.switchWorkspace('client');
+    });
+    expect(result.current.products).toEqual([clientProduct]);
   });
 
   it('treats existing legacy data as demo data and writes it to demo storage', () => {
