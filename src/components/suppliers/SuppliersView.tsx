@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
 import { formatIndianCurrency } from '../../utils/formatters';
+import { formatIndianPhone } from '../../utils/formatters';
 import { Supplier, SupplierStatus } from '../../types';
 import { CreatePurchaseOrderModal } from './CreatePurchaseOrderModal';
 import { PurchaseOrdersLedger } from './PurchaseOrdersLedger';
@@ -314,7 +315,7 @@ export const SuppliersView: React.FC = () => {
                       </p>
                       <p className="flex items-center gap-2">
                         <Phone className="h-3.5 w-3.5 text-slate-400" />
-                        <span>{s.phone}</span>
+                        <span>{formatIndianPhone(s.phone)}</span>
                       </p>
                     </div>
                   </div>

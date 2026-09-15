@@ -17,6 +17,7 @@ import {
 import { useBusiness } from '../../context/BusinessContext';
 import { formatIndianCurrency } from '../../utils/formatters';
 import { formatIndianDate } from '../../utils/formatters';
+import { formatIndianPhone } from '../../utils/formatters';
 import { Customer, CustomerTier } from '../../types';
 
 export const CustomersView: React.FC = () => {
@@ -311,7 +312,7 @@ export const CustomersView: React.FC = () => {
                 <div>
                   <h3 className="text-base font-bold text-slate-900">{selectedCustomer.name}</h3>
                   <p className="text-xs text-slate-500">
-                    {selectedCustomer.email} • {selectedCustomer.phone}
+                    {selectedCustomer.email} • {formatIndianPhone(selectedCustomer.phone)}
                   </p>
                 </div>
               </div>
