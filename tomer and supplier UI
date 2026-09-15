@@ -1,0 +1,11 @@
+warning: in the working copy of 'src/components/customers/CustomersView.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/suppliers/CreatePurchaseOrderModal.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/suppliers/PurchaseOrderDetailsModal.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/suppliers/PurchaseOrdersLedger.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/suppliers/SuppliersView.tsx', LF will be replaced by CRLF the next time Git touches it
+ src/components/customers/CustomersView.tsx         | 84 [32m++++++++++++[m[31m----------[m
+ .../suppliers/CreatePurchaseOrderModal.tsx         |  8 [32m+[m[31m--[m
+ .../suppliers/PurchaseOrderDetailsModal.tsx        |  8 [32m+[m[31m--[m
+ src/components/suppliers/PurchaseOrdersLedger.tsx  | 28 [32m++++[m[31m----[m
+ src/components/suppliers/SuppliersView.tsx         | 68 [32m++++++++++[m[31m--------[m
+ 5 files changed, 106 insertions(+), 90 deletions(-)

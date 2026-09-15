@@ -74,13 +74,13 @@ export const PurchaseOrderDetailsModal: React.FC<PurchaseOrderDetailsModalProps>
       id="po-details-modal"
     >
       <div 
-        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-8"
+        className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-200/90 overflow-hidden my-8"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 bg-white">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-indigo-100 text-indigo-700">
+            <div className="p-1.5 rounded-md bg-slate-100 text-slate-700">
               <FileText className="h-5 w-5" />
             </div>
             <div>
@@ -102,7 +102,7 @@ export const PurchaseOrderDetailsModal: React.FC<PurchaseOrderDetailsModalProps>
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 space-y-5 text-xs max-h-[75vh] overflow-y-auto">
+        <div className="p-5 space-y-5 text-xs max-h-[75vh] overflow-y-auto">
           {/* Supplier and Logistics Strip */}
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div>

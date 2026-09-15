@@ -92,11 +92,11 @@ export const PurchaseOrdersLedger: React.FC<PurchaseOrdersLedgerProps> = ({ onCr
   };
 
   return (
-    <div className="space-y-6" id="bizpilot-purchase-orders-ledger">
+    <div className="space-y-8" id="bizpilot-purchase-orders-ledger">
       {/* PO KPIs Strip */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Total Purchase Orders</span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Total Purchase Orders</span>
           <div className="flex items-center justify-between mt-2">
             <h3 className="text-2xl font-black text-slate-900 tracking-tight">{purchaseOrders.length}</h3>
             <div className="p-2 rounded-lg bg-indigo-50 text-indigo-600">
@@ -106,8 +106,8 @@ export const PurchaseOrdersLedger: React.FC<PurchaseOrdersLedgerProps> = ({ onCr
           <p className="text-xs text-slate-500 mt-1">{receivedOrdersCount} fulfilled & received</p>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Committed Spend</span>
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Committed Spend</span>
           <div className="flex items-center justify-between mt-2">
             <h3 className="text-2xl font-black text-slate-900 tracking-tight">
               {formatCurrency(committedActiveSpend)}
@@ -119,8 +119,8 @@ export const PurchaseOrdersLedger: React.FC<PurchaseOrdersLedgerProps> = ({ onCr
           <p className="text-xs text-slate-500 mt-1">In transit / currently ordered</p>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Active Pipelines</span>
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Active Pipelines</span>
           <div className="flex items-center justify-between mt-2">
             <h3 className="text-2xl font-black text-slate-900 tracking-tight">{activeOrdersCount}</h3>
             <div className="p-2 rounded-lg bg-amber-50 text-amber-600">
@@ -130,8 +130,8 @@ export const PurchaseOrdersLedger: React.FC<PurchaseOrdersLedgerProps> = ({ onCr
           <p className="text-xs text-slate-500 mt-1">Drafts & dispatched reorders</p>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Cumulative Spend</span>
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Cumulative Spend</span>
           <div className="flex items-center justify-between mt-2">
             <h3 className="text-2xl font-black text-slate-900 tracking-tight">
               {formatCurrency(totalSpend)}
@@ -145,7 +145,7 @@ export const PurchaseOrdersLedger: React.FC<PurchaseOrdersLedgerProps> = ({ onCr
       </div>
 
       {/* Control Ribbon */}
-      <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs space-y-3">
+      <div className="rounded-xl bg-white border border-slate-200/90 p-4 shadow-2xs space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
@@ -173,7 +173,7 @@ export const PurchaseOrdersLedger: React.FC<PurchaseOrdersLedgerProps> = ({ onCr
             <button
               key={tab}
               onClick={() => setStatusFilter(tab)}
-              className={`px-3 py-1 rounded-full text-xs font-semibold capitalize whitespace-nowrap transition-all ${
+              className={`px-3 py-1 rounded-md text-xs font-medium capitalize whitespace-nowrap transition-colors ${
                 statusFilter === tab
                   ? 'bg-slate-900 text-white'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -186,11 +186,11 @@ export const PurchaseOrdersLedger: React.FC<PurchaseOrdersLedgerProps> = ({ onCr
       </div>
 
       {/* Purchase Orders Table */}
-      <div className="rounded-2xl bg-white border border-slate-200 shadow-xs overflow-hidden">
+      <div className="rounded-xl bg-white border border-slate-200/90 shadow-2xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+              <tr className="border-b border-slate-100 bg-slate-50/75 text-[11px] font-medium uppercase tracking-wider text-slate-500">
                 <th className="px-5 py-3.5">PO Number</th>
                 <th className="px-5 py-3.5">Date</th>
                 <th className="px-5 py-3.5">Vendor</th>

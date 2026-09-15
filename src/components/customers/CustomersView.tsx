@@ -94,11 +94,28 @@ export const CustomersView: React.FC = () => {
   }, [selectedCustomer, orders]);
 
   return (
-    <div className="space-y-6" id="bizpilot-customers-view">
+    <div className="space-y-8" id="bizpilot-customers-view">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 font-sans">Customers</h1>
+          <p className="text-sm text-slate-500 mt-1">
+            Manage customer relationships, segments, and purchase history.
+          </p>
+        </div>
+        <button
+          onClick={() => setIsAddModalOpen(true)}
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition-colors shadow-2xs"
+        >
+          <Plus className="h-3.5 w-3.5" />
+          <span>Add Customer</span>
+        </button>
+      </div>
+
       {/* Customer KPIs Strip */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Total Customer Base</span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Total Customer Base</span>
           <div className="flex items-center justify-between mt-2">
             <h3 className="text-2xl font-black text-slate-900 tracking-tight">{customers.length}</h3>
             <div className="p-2 rounded-lg bg-indigo-50 text-indigo-600">
@@ -108,8 +125,8 @@ export const CustomersView: React.FC = () => {
           <p className="text-xs text-slate-500 mt-1">Across retail, wholesale & B2B</p>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Average Lifetime Value (LTV)</span>
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Average Lifetime Value (LTV)</span>
           <div className="flex items-center justify-between mt-2">
             <h3 className="text-2xl font-black text-slate-900 tracking-tight">
               {formatCurrency(avgLtv)}
@@ -123,8 +140,8 @@ export const CustomersView: React.FC = () => {
           </p>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">VIP & Wholesale Accounts</span>
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500">VIP & Wholesale Accounts</span>
           <div className="flex items-center justify-between mt-2">
             <h3 className="text-2xl font-black text-slate-900 tracking-tight">
               {vipCount + wholesaleCount}
@@ -138,8 +155,8 @@ export const CustomersView: React.FC = () => {
           </p>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Repeat Customer Rate</span>
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Repeat Customer Rate</span>
           <div className="flex items-center justify-between mt-2">
             <h3 className="text-2xl font-black text-slate-900 tracking-tight">
               {formatPercent(repeatCustomerRate)}
@@ -153,7 +170,7 @@ export const CustomersView: React.FC = () => {
       </div>
 
       {/* Control Ribbon */}
-      <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs space-y-3">
+      <div className="rounded-xl bg-white border border-slate-200/90 p-4 shadow-2xs space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
@@ -166,13 +183,6 @@ export const CustomersView: React.FC = () => {
             />
           </div>
 
-          <button
-            onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs shadow-indigo-600/20 transition-all"
-          >
-            <Plus className="h-3.5 w-3.5" />
-            <span>Add Customer</span>
-          </button>
         </div>
 
         {/* Tier Tabs */}
@@ -181,7 +191,7 @@ export const CustomersView: React.FC = () => {
             <button
               key={tier}
               onClick={() => setTierFilter(tier)}
-              className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
                 tierFilter === tier
                   ? 'bg-slate-900 text-white'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -194,10 +204,10 @@ export const CustomersView: React.FC = () => {
       </div>
 
       {/* Customers Table */}
-      <div className="rounded-xl bg-white border border-slate-200 shadow-xs overflow-hidden">
+      <div className="rounded-xl bg-white border border-slate-200/90 shadow-2xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-slate-600">
-            <thead className="bg-slate-50/80 text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-200">
+            <thead className="bg-slate-50/75 text-[11px] font-medium uppercase tracking-wider text-slate-500 border-b border-slate-100">
               <tr>
                 <th className="py-3.5 px-4">Client / Contact</th>
                 <th className="py-3.5 px-4">Company / Location</th>
@@ -218,9 +228,9 @@ export const CustomersView: React.FC = () => {
                 </tr>
               ) : (
                 filteredCustomers.map(c => (
-                  <tr key={c.id} className="hover:bg-slate-50/80 transition-colors">
+                  <tr key={c.id} className="hover:bg-slate-50/60 transition-colors">
                     {/* Name & Contact */}
-                    <td className="py-3 px-4">
+                    <td className="py-3.5 px-4">
                       <div>
                         <p className="font-bold text-slate-900">{c.name}</p>
                         <p className="text-[11px] text-slate-400">{c.email}</p>
@@ -228,13 +238,13 @@ export const CustomersView: React.FC = () => {
                     </td>
 
                     {/* Company & Location */}
-                    <td className="py-3 px-4">
+                    <td className="py-3.5 px-4">
                       <p className="font-semibold text-slate-800">{c.company || 'Direct Consumer'}</p>
                       <p className="text-[11px] text-slate-400">{c.location}</p>
                     </td>
 
                     {/* Tier */}
-                    <td className="py-3 px-4">
+                    <td className="py-3.5 px-4">
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                         c.tier === 'VIP'
                           ? 'bg-purple-100 text-purple-800 border border-purple-200'
@@ -249,27 +259,27 @@ export const CustomersView: React.FC = () => {
                     </td>
 
                     {/* Orders count */}
-                    <td className="py-3 px-4 text-slate-900 font-bold">
+                    <td className="py-3.5 px-4 text-slate-900 font-bold">
                       {c.totalOrders} {c.totalOrders === 1 ? 'order' : 'orders'}
                     </td>
 
                     {/* Spend */}
-                    <td className="py-3 px-4 font-black text-slate-900">
+                    <td className="py-3.5 px-4 font-black text-slate-900">
                       {formatCurrency(c.totalSpent)}
                     </td>
 
                     {/* AOV */}
-                    <td className="py-3 px-4 text-slate-600">
+                    <td className="py-3.5 px-4 text-slate-600">
                       {formatCurrency(c.averageOrderValue)}
                     </td>
 
                     {/* Last Order Date */}
-                    <td className="py-3 px-4 text-slate-500 font-mono text-[11px]">
+                    <td className="py-3.5 px-4 text-slate-500 font-mono text-[11px]">
                       {c.lastOrderDate}
                     </td>
 
                     {/* Profile Action */}
-                    <td className="py-3 px-4 text-right">
+                    <td className="py-3.5 px-4 text-right">
                       <button
                         onClick={() => setSelectedCustomer(c)}
                         className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 text-slate-700 text-xs font-semibold transition-colors"
@@ -289,10 +299,10 @@ export const CustomersView: React.FC = () => {
       {selectedCustomer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
           <div 
-            className="w-full max-w-xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden"
+            className="w-full max-w-xl bg-white rounded-xl shadow-xl border border-slate-200/90 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 bg-white">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-indigo-600 text-white font-black text-base flex items-center justify-center">
                   {selectedCustomer.name.charAt(0)}
@@ -312,7 +322,7 @@ export const CustomersView: React.FC = () => {
               </button>
             </div>
 
-            <div className="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
+            <div className="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
               {/* Account Stats Strip */}
               <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200 text-center text-xs">
                 <div>
@@ -366,7 +376,7 @@ export const CustomersView: React.FC = () => {
               </div>
             </div>
 
-            <div className="px-6 py-3 border-t border-slate-200 bg-slate-50 flex justify-end">
+            <div className="px-5 py-3 border-t border-slate-200/80 bg-white flex justify-end">
               <button
                 onClick={() => setSelectedCustomer(null)}
                 className="px-4 py-2 rounded-lg bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors"
@@ -382,17 +392,17 @@ export const CustomersView: React.FC = () => {
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
           <div 
-            className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden"
+            className="w-full max-w-lg bg-white rounded-xl shadow-xl border border-slate-200/90 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 bg-white">
               <h3 className="text-base font-bold text-slate-900">Add Customer Account</h3>
               <button onClick={() => setIsAddModalOpen(false)} className="p-1 rounded text-slate-400 hover:text-slate-600">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <form onSubmit={handleAddSubmit} className="p-6 space-y-4 text-xs">
+            <form onSubmit={handleAddSubmit} className="p-5 space-y-4 text-xs">
               <div>
                 <label className="block font-bold uppercase tracking-wider text-slate-600 mb-1">Customer Full Name *</label>
                 <input
