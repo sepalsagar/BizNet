@@ -156,29 +156,37 @@ export const AnalyticsView: React.FC = () => {
   const COLORS = ['#6366f1', '#10b981', '#3b82f6', '#f59e0b', '#ec4899'];
 
   return (
-    <div className="space-y-6" id="bizpilot-analytics-view">
-      {/* Overview Banner */}
-      <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-8" id="bizpilot-analytics-view">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Financial Diagnostics</span>
-            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
-              {timeframe === '7d' ? 'Past 7 Days' : timeframe === '14d' ? 'Past 14 Days' : 'Full Range'}
-            </span>
-          </div>
-          <h2 className="text-lg font-black text-slate-900 mt-0.5">Comprehensive Profit & Channel Analytics</h2>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Evaluate revenue distribution across channels, categories, and unit economics
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 font-sans">Analytics</h1>
+          <p className="text-sm text-slate-500 mt-1">
+            Evaluate revenue distribution, profitability, and unit economics across your business.
           </p>
         </div>
+        <div className="inline-flex items-center gap-2 self-start sm:self-center px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 text-xs font-medium">
+          <Calendar className="h-3.5 w-3.5 text-slate-400" />
+          <span>{timeframe === '7d' ? 'Past 7 Days' : timeframe === '14d' ? 'Past 14 Days' : 'Full Range'}</span>
+        </div>
+      </div>
 
+      {/* Financial Snapshot and Timeframe Controls */}
+      <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+        <div>
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-500">Financial Snapshot</span>
+          <h2 className="text-lg font-bold text-slate-900 mt-1">Profit & Channel Performance</h2>
+          <p className="text-xs text-slate-500 mt-1">
+            Review performance across sales channels and product categories.
+          </p>
+        </div>
         <div className="flex flex-wrap items-center gap-4">
           {/* Timeframe Selector */}
-          <div id="analytics-timeframe-selector" className="flex items-center rounded-lg bg-slate-100 p-0.5 text-xs font-semibold text-slate-600">
+          <div id="analytics-timeframe-selector" className="flex items-center rounded-lg bg-slate-100 p-0.5 text-xs font-medium text-slate-600">
             <button
               type="button"
               onClick={() => setTimeframe('7d')}
-              className={`px-2.5 py-1 rounded-md transition-all ${timeframe === '7d' ? 'bg-white text-slate-900 shadow-xs' : 'hover:text-slate-900'}`}
+              className={`px-2.5 py-1 rounded-md transition-colors ${timeframe === '7d' ? 'bg-white text-slate-900 shadow-2xs' : 'hover:text-slate-900'}`}
               aria-pressed={timeframe === '7d'}
             >
               7 Days
@@ -186,7 +194,7 @@ export const AnalyticsView: React.FC = () => {
             <button
               type="button"
               onClick={() => setTimeframe('14d')}
-              className={`px-2.5 py-1 rounded-md transition-all ${timeframe === '14d' ? 'bg-white text-slate-900 shadow-xs' : 'hover:text-slate-900'}`}
+              className={`px-2.5 py-1 rounded-md transition-colors ${timeframe === '14d' ? 'bg-white text-slate-900 shadow-2xs' : 'hover:text-slate-900'}`}
               aria-pressed={timeframe === '14d'}
             >
               14 Days
@@ -194,7 +202,7 @@ export const AnalyticsView: React.FC = () => {
             <button
               type="button"
               onClick={() => setTimeframe('30d')}
-              className={`px-2.5 py-1 rounded-md transition-all ${timeframe === '30d' ? 'bg-white text-slate-900 shadow-xs' : 'hover:text-slate-900'}`}
+              className={`px-2.5 py-1 rounded-md transition-colors ${timeframe === '30d' ? 'bg-white text-slate-900 shadow-2xs' : 'hover:text-slate-900'}`}
               aria-pressed={timeframe === '30d'}
             >
               Full Range
@@ -205,13 +213,13 @@ export const AnalyticsView: React.FC = () => {
 
           <div className="flex items-center gap-3">
             <div className="text-right">
-              <span className="text-xs text-slate-400">Blended Gross Margin</span>
-              <p className="text-xl font-black text-emerald-600">{formatPercent(periodMarginPct)}</p>
+              <span className="text-xs text-slate-500">Blended Gross Margin</span>
+              <p className="text-xl font-bold text-emerald-600 mt-0.5">{formatPercent(periodMarginPct)}</p>
             </div>
             <div className="h-8 w-px bg-slate-200" />
             <div className="text-right">
-              <span className="text-xs text-slate-400">Net Profit Generated</span>
-              <p className="text-xl font-black text-slate-900">{formatCurrency(periodProfit)}</p>
+              <span className="text-xs text-slate-500">Net Profit Generated</span>
+              <p className="text-xl font-bold text-slate-900 mt-0.5">{formatCurrency(periodProfit)}</p>
             </div>
           </div>
         </div>
@@ -220,18 +228,18 @@ export const AnalyticsView: React.FC = () => {
       {/* Visual Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Channel Breakdown */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-slate-900">Revenue by Sales Channel</h3>
               <p className="text-xs text-slate-500">Distribution across Online, In-Store, Wholesale & B2B</p>
             </div>
-            <div className="p-2 rounded-lg bg-indigo-50 text-indigo-600">
+            <div className="p-1.5 rounded-md bg-indigo-50 text-indigo-600">
               <PieChartIcon className="h-4 w-4" />
             </div>
           </div>
 
-          <div className="h-64 w-full">
+          <div className="h-72 w-full">
             {totalPeriodRevenue === 0 ? (
               <div className="h-full w-full flex flex-col items-center justify-center text-slate-400 text-xs">
                 <PieChartIcon className="h-8 w-8 text-slate-300 mb-2 stroke-[1.5]" />
@@ -255,11 +263,11 @@ export const AnalyticsView: React.FC = () => {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip 
+                  <Tooltip
                     formatter={(value: any) => [formatIndianCurrency(Number(value)), 'Revenue']}
-                    contentStyle={{ backgroundColor: '#0f172a', borderRadius: '8px', color: '#fff', fontSize: '12px' }}
+                    contentStyle={{ backgroundColor: '#0f172a', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '12px', padding: '8px 10px' }}
                   />
-                  <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                  <Legend verticalAlign="bottom" height={32} iconType="circle" wrapperStyle={{ fontSize: '11px', color: '#64748b' }} />
                 </PieChart>
               </ResponsiveContainer>
             )}
@@ -267,7 +275,7 @@ export const AnalyticsView: React.FC = () => {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-slate-100 text-center text-xs">
             {channelBreakdown.map((c) => (
-              <div key={c.channel} className="p-2 rounded-lg bg-slate-50">
+              <div key={c.channel} className="p-2 rounded-md bg-slate-50 border border-slate-100">
                 <span className="text-slate-400 text-[10px] font-semibold">{c.channel}</span>
                 <p className="font-bold text-slate-900">{formatCurrency(c.revenue)}</p>
                 <p className="text-[10px] text-slate-500">{c.ordersCount} orders</p>
@@ -277,30 +285,38 @@ export const AnalyticsView: React.FC = () => {
         </div>
 
         {/* Category Profitability Comparison */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-slate-900">Category Profit Margins (%)</h3>
               <p className="text-xs text-slate-500">Department margin percentage vs company benchmark ({settings.targetMarginPct}%)</p>
             </div>
-            <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600">
+            <div className="p-1.5 rounded-md bg-emerald-50 text-emerald-600">
               <BarChart3 className="h-4 w-4" />
             </div>
           </div>
 
-          <div className="h-64 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={categoryBreakdown} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#64748b' }} tickLine={false} axisLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#64748b' }} tickLine={false} axisLine={false} unit="%" />
-                <Tooltip 
-                  formatter={(val: any) => [`${val}%`, 'Profit Margin']}
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '8px', color: '#fff', fontSize: '12px' }}
-                />
-                <Bar dataKey="marginPct" fill="#6366f1" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+          <div className="h-72 w-full">
+            {categoryBreakdown.length === 0 ? (
+              <div className="h-full flex flex-col items-center justify-center text-slate-400 text-xs">
+                <BarChart3 className="h-8 w-8 text-slate-300 mb-2 stroke-[1.5]" />
+                <p className="font-semibold text-slate-600">No category data available</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">Category margins will appear when products are added</p>
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={categoryBreakdown} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#64748b' }} tickLine={false} axisLine={false} />
+                  <YAxis tick={{ fontSize: 11, fill: '#64748b' }} tickLine={false} axisLine={false} unit="%" />
+                  <Tooltip
+                    formatter={(val: any) => [`${val}%`, 'Profit Margin']}
+                    contentStyle={{ backgroundColor: '#0f172a', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '12px', padding: '8px 10px' }}
+                  />
+                  <Bar dataKey="marginPct" fill="#6366f1" radius={[3, 3, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            )}
           </div>
 
           <div className="flex items-center justify-between pt-3 border-t border-slate-100 text-xs">
@@ -320,10 +336,10 @@ export const AnalyticsView: React.FC = () => {
       {/* Unit Economics Margin Extremes */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Margin Performers */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-emerald-100 text-emerald-800">
+              <div className="p-1.5 rounded-md bg-emerald-50 text-emerald-700">
                 <ArrowUpRight className="h-4 w-4" />
               </div>
               <div>
@@ -346,7 +362,7 @@ export const AnalyticsView: React.FC = () => {
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="px-2 py-0.5 rounded-full text-[11px] font-black bg-emerald-100 text-emerald-800">
+                    <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/60">
                       {margin.toFixed(1)}% margin
                     </span>
                     <p className="text-[10px] text-slate-500 mt-0.5">+{formatCurrency(unitProfit)}/unit</p>
@@ -358,10 +374,10 @@ export const AnalyticsView: React.FC = () => {
         </div>
 
         {/* Lowest Margin Watchlist */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-xs">
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-amber-100 text-amber-800">
+              <div className="p-1.5 rounded-md bg-amber-50 text-amber-700">
                 <ArrowDownRight className="h-4 w-4" />
               </div>
               <div>
@@ -384,8 +400,8 @@ export const AnalyticsView: React.FC = () => {
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className={`px-2 py-0.5 rounded-full text-[11px] font-black ${
-                      margin < 40 ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'
+                    <span className={`px-2 py-0.5 rounded text-[11px] font-medium border ${
+                      margin < 40 ? 'bg-rose-50 text-rose-700 border-rose-200/60' : 'bg-amber-50 text-amber-700 border-amber-200/60'
                     }`}>
                       {margin.toFixed(1)}% margin
                     </span>
