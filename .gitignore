@@ -2,7 +2,11 @@ node_modules/
 build/
 dist/
 coverage/
+.vscode/
+.idea/
 .DS_Store
+Thumbs.db
+desktop.ini
 *.log
 .env*
 !.env.example
