@@ -28,13 +28,13 @@ interface Message {
 
 const advisorMarkdownComponents: Components = {
   h1: ({ node, ...props }) => (
-    <h1 className="text-base font-bold text-slate-900 mt-3 mb-1.5 first:mt-0" {...props} />
+    <h1 className="text-lg font-bold text-slate-900 mt-3 mb-2 first:mt-0" {...props} />
   ),
   h2: ({ node, ...props }) => (
-    <h2 className="text-sm font-bold text-slate-900 mt-2.5 mb-1 first:mt-0" {...props} />
+    <h2 className="text-base font-bold text-slate-900 mt-3 mb-1.5 first:mt-0" {...props} />
   ),
   h3: ({ node, ...props }) => (
-    <h3 className="text-xs font-bold text-slate-900 mt-2 mb-1 first:mt-0" {...props} />
+    <h3 className="text-sm font-bold text-slate-900 mt-2.5 mb-1 first:mt-0" {...props} />
   ),
   h4: ({ node, ...props }) => (
     <h4 className="text-xs font-semibold text-slate-900 mt-1.5 mb-1 first:mt-0" {...props} />
@@ -49,10 +49,10 @@ const advisorMarkdownComponents: Components = {
     <em className="italic" {...props} />
   ),
   ul: ({ node, ...props }) => (
-    <ul className="list-disc pl-4 mb-2 space-y-1 last:mb-0" {...props} />
+    <ul className="list-disc pl-5 mb-3 space-y-1.5 last:mb-0" {...props} />
   ),
   ol: ({ node, ...props }) => (
-    <ol className="list-decimal pl-4 mb-2 space-y-1 last:mb-0" {...props} />
+    <ol className="list-decimal pl-5 mb-3 space-y-1.5 last:mb-0" {...props} />
   ),
   li: ({ node, ...props }) => (
     <li className="leading-relaxed" {...props} />
@@ -73,7 +73,7 @@ const advisorMarkdownComponents: Components = {
   ),
   pre: ({ node, children, ...props }) => (
     <pre
-      className="p-3 my-2.5 rounded-xl bg-slate-900 text-slate-100 font-mono text-[11px] overflow-x-auto border border-slate-800 leading-normal"
+      className="p-3 my-3 rounded-lg bg-slate-900 text-slate-100 font-mono text-[11px] overflow-x-auto border border-slate-800 leading-relaxed"
       {...props}
     >
       {React.isValidElement(children) ? React.cloneElement(children as any, { isPre: true }) : children}
@@ -98,7 +98,7 @@ const advisorMarkdownComponents: Components = {
   },
   table: ({ node, ...props }) => (
     <div className="overflow-x-auto my-2.5">
-      <table className="min-w-full text-[11px] border-collapse border border-slate-200 rounded-lg overflow-hidden" {...props} />
+      <table className="min-w-full text-[11px] border-collapse border border-slate-200 rounded-md overflow-hidden" {...props} />
     </div>
   ),
   thead: ({ node, ...props }) => <thead className="bg-slate-100 text-slate-800" {...props} />,
@@ -274,40 +274,40 @@ export const AiAdvisorView: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6" id="bizpilot-advisor-view">
+    <div className="space-y-8" id="bizpilot-advisor-view">
       {/* Advisor Header */}
-      <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-md border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-indigo-600 text-white shadow-md shadow-indigo-600/30">
-            <Sparkles className="h-6 w-6" />
+          <div className="p-2 rounded-lg bg-indigo-50 text-indigo-600 border border-indigo-100">
+            <Sparkles className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/30 text-indigo-300 border border-indigo-500/40">
-                Gemini 2.5 Intelligence
+              <span className="px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-100">
+                Business Intelligence
               </span>
-              <span className="text-xs text-slate-400">Context-Aware Operational Advisor</span>
+              <span className="text-xs text-slate-500">Context-aware operational advisor</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight text-white mt-0.5">
-              BizPilot Strategic Copilot
-            </h2>
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 font-sans mt-1">AI Assistant</h1>
+            <p className="text-sm text-slate-500 mt-0.5">Ask questions about inventory, cash flow, pricing, and orders.</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveTab('pricing')}
-            className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold backdrop-blur-xs transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition-colors shadow-2xs"
           >
-            Launch Pricing Simulator →
+            <ArrowRight className="h-3.5 w-3.5" />
+            <span>Open Pricing Simulator</span>
           </button>
         </div>
       </div>
 
       {/* Main Chat Container */}
-      <div className="rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col h-[600px] overflow-hidden">
+      <div className="rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col h-[600px] overflow-hidden">
         {/* Messages Feed */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 bg-slate-50/30">
           {messages.map((m) => {
             const isAssistant = m.sender === 'assistant';
             return (
@@ -316,15 +316,15 @@ export const AiAdvisorView: React.FC = () => {
                 className={`flex gap-3 ${isAssistant ? 'justify-start' : 'justify-end'}`}
               >
                 {isAssistant && (
-                  <div className="h-8 w-8 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="h-8 w-8 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shrink-0 mt-0.5">
                     <Sparkles className="h-4 w-4" />
                   </div>
                 )}
 
-                <div className={`max-w-2xl rounded-2xl px-4 py-3 text-xs leading-relaxed ${
+                <div className={`max-w-2xl rounded-xl px-4 py-3 text-xs leading-relaxed ${
                   isAssistant 
-                    ? 'bg-slate-50 border border-slate-200 text-slate-800' 
-                    : 'bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-white border border-slate-200 text-slate-800 shadow-2xs'
+                    : 'bg-slate-900 text-white'
                 }`}>
                   {isAssistant ? (
                     <div className="markdown-body font-sans text-xs">
@@ -362,8 +362,8 @@ export const AiAdvisorView: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <span>{m.timestamp}</span>
                       {isAssistant && m.source && (
-                        <span className="px-1.5 py-0.2 rounded bg-slate-200/60 text-slate-600 text-[9px] font-medium">
-                          {m.source === 'gemini-2.5-flash' ? '✨ Gemini 2.5' : m.source === 'heuristic_engine' ? '⚡ Heuristic' : 'Offline'}
+                        <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[9px] font-medium border border-slate-200">
+                          {m.source === 'gemini-2.5-flash' ? 'Gemini 2.5' : m.source === 'heuristic_engine' ? 'Heuristic' : 'Offline'}
                         </span>
                       )}
                     </div>
@@ -384,7 +384,7 @@ export const AiAdvisorView: React.FC = () => {
                 </div>
 
                 {!isAssistant && (
-                  <div className="h-8 w-8 rounded-full bg-slate-900 text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="h-8 w-8 rounded-lg bg-slate-900 text-white flex items-center justify-center shrink-0 mt-0.5">
                     <User className="h-4 w-4" />
                   </div>
                 )}
@@ -394,10 +394,10 @@ export const AiAdvisorView: React.FC = () => {
 
           {loading && (
             <div className="flex gap-3 items-center text-xs text-slate-400">
-              <div className="h-8 w-8 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0">
+              <div className="h-8 w-8 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
                 <Sparkles className="h-4 w-4 animate-spin" />
               </div>
-              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-2">
+              <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span>
                 <span>Analyzing store telemetry and generating recommendations...</span>
               </div>
@@ -408,15 +408,15 @@ export const AiAdvisorView: React.FC = () => {
         </div>
 
         {/* Suggestion Chips */}
-        <div className="px-4 py-2 bg-slate-50 border-t border-slate-100 flex items-center gap-2 overflow-x-auto">
-          <span className="text-[11px] font-bold text-slate-400 shrink-0 flex items-center gap-1">
+        <div className="px-4 py-2.5 bg-white border-t border-slate-200/80 flex items-center gap-2 overflow-x-auto">
+          <span className="text-[11px] font-medium uppercase tracking-wider text-slate-400 shrink-0 flex items-center gap-1">
             <Lightbulb className="h-3 w-3" /> Suggested:
           </span>
           {samplePrompts.map((chip, idx) => (
             <button
               key={idx}
               onClick={() => handleSend(chip)}
-              className="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-300 text-[11px] whitespace-nowrap transition-colors"
+              className="px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-300 text-[11px] whitespace-nowrap transition-colors"
             >
               {chip}
             </button>
@@ -424,7 +424,7 @@ export const AiAdvisorView: React.FC = () => {
         </div>
 
         {/* Input Bar */}
-        <div className="p-3 border-t border-slate-200 bg-white">
+        <div className="p-4 border-t border-slate-200/80 bg-white">
           <form 
             onSubmit={(e) => {
               e.preventDefault();
@@ -437,12 +437,12 @@ export const AiAdvisorView: React.FC = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask BizPilot AI anything about your inventory, cash flow, pricing, or orders..."
-              className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:border-indigo-500 focus:outline-hidden"
+              className="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 text-xs focus:border-indigo-500 focus:outline-hidden bg-slate-50/50 focus:bg-white transition-colors"
             />
             <button
               type="submit"
               disabled={!input.trim() || loading}
-              className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold disabled:opacity-50 transition-all flex items-center gap-1.5 shadow-md shadow-indigo-600/20"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium disabled:opacity-50 transition-colors shadow-2xs"
             >
               <Send className="h-3.5 w-3.5" />
               <span>Ask Copilot</span>
