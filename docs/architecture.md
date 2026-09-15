@@ -1,8 +1,8 @@
-# BizPilot Architecture
+# BizNet Architecture
 
 ## Current Implementation
 
-BizPilot is a React and TypeScript single-page application served by an Express/Node.js process. Vite provides development middleware and builds the frontend assets. In production mode, Express serves the generated `dist` directory and provides the SPA fallback route.
+BizNet is a React and TypeScript single-page application served by an Express/Node.js process. Vite provides development middleware and builds the frontend assets. In production mode, Express serves the generated `dist` directory and provides the SPA fallback route.
 
 ```mermaid
 flowchart LR
@@ -41,7 +41,7 @@ The endpoint accepts non-empty queries up to 2,000 characters, limits request bo
 
 ### Persistence and Isolation
 
-The current persistence boundary is browser localStorage. On startup, Demo data loads from its scoped keys, or from the Indian seed when no current snapshot exists. Legacy unscoped BizPilot keys are interpreted as Demo data. A Demo seed revision check refreshes recognized stale Western sample snapshots without touching Client keys. This is local data separation for a portfolio simulation, not production tenant security.
+The current persistence boundary is browser localStorage. On startup, Demo data loads from its scoped keys, or from the Indian seed when no current snapshot exists. Legacy unscoped `bizpilot` keys are interpreted as Demo data. A Demo seed revision check refreshes recognized stale Western sample snapshots without touching Client keys. This is local data separation for a portfolio simulation, not production tenant security.
 
 ## Potential Production Evolution
 

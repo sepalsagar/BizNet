@@ -132,7 +132,7 @@ export const AiAdvisorView: React.FC = () => {
     {
       id: 'm-1',
       sender: 'assistant',
-      text: `Hello! I'm your **BizPilot AI Advisor**. I have real-time access to your store telemetry:\n\n• **${products.length} active SKUs** (${lowStockProducts.length} low stock, ${outOfStockProducts.length} out of stock)\n• **${orders.length} completed transactions** with a **${grossMarginPct.toFixed(1)}% gross margin**\n• **${customers.length} customer records** across retail & wholesale\n\nHow can I help you improve cash flow, optimize inventory, or protect margins today?`,
+      text: `Hello! I'm your **BizNet AI Advisor**. I have real-time access to your store telemetry:\n\n• **${products.length} active SKUs** (${lowStockProducts.length} low stock, ${outOfStockProducts.length} out of stock)\n• **${orders.length} completed transactions** with a **${grossMarginPct.toFixed(1)}% gross margin**\n• **${customers.length} customer records** across retail & wholesale\n\nHow can I help you improve cash flow, optimize inventory, or protect margins today?`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       source: 'gemini-2.5-flash',
     }
@@ -458,7 +458,7 @@ export const AiAdvisorView: React.FC = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask BizPilot AI anything about your inventory, cash flow, pricing, or orders..."
+              placeholder="Ask BizNet AI anything about your inventory, cash flow, pricing, or orders..."
               className="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 text-xs focus:border-indigo-500 focus:outline-hidden bg-slate-50/50 focus:bg-white transition-colors"
             />
             <button

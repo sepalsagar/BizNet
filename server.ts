@@ -36,7 +36,7 @@ async function startServer() {
   app.get('/api/health', (req, res) => {
     res.json({
       status: 'ok',
-      service: 'BizPilot API',
+      service: 'BizNet API',
       aiConfigured: Boolean(process.env.GEMINI_API_KEY),
       timestamp: new Date().toISOString(),
     });
@@ -62,7 +62,7 @@ async function startServer() {
     // If Gemini is configured, run through Gemini 2.5 Flash
     if (ai) {
       try {
-        const systemInstruction = `You are BizPilot Copilot, an elite Chief Operating Officer, Financial Strategist, and Supply Chain Expert advising small and growing businesses.
+        const systemInstruction = `You are BizNet Copilot, an elite Chief Operating Officer, Financial Strategist, and Supply Chain Expert advising small and growing businesses.
 You have real-time access to the company's operational dataset provided below in JSON.
 Always cite concrete numbers, percentages, product names, customer segments, and supplier details from this data.
 Keep your analysis structured, clear, and actionable. Use markdown formatting with bold metrics, bullet points, and concise section headers.
@@ -155,7 +155,7 @@ ${JSON.stringify(businessContext || {}, null, 2)}
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`BizPilot server running on http://0.0.0.0:${PORT}`);
+    console.log(`BizNet server running on http://0.0.0.0:${PORT}`);
   });
 }
 

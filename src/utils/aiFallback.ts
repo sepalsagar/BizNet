@@ -116,8 +116,8 @@ export function generateFallbackResponse(
     const summary = context.customerSummary;
     return {
       message: summary
-        ? `### Customer Summary\n\nBizPilot currently tracks **${context.customersCount || 0} customers**. Recorded customer spend is **${money(summary.totalSpent)}**, with a repeat-customer rate of **${Number(summary.repeatCustomerRate || 0).toFixed(1)}%**. The fallback does not receive customer names or contact details, so it cannot safely rank individual customers.`
-        : '### Customer Summary\n\nBizPilot currently tracks **${context.customersCount || 0} customers**. Individual customer rankings are not available in the supplied privacy-safe context.',
+        ? `### Customer Summary\n\nBizNet currently tracks **${context.customersCount || 0} customers**. Recorded customer spend is **${money(summary.totalSpent)}**, with a repeat-customer rate of **${Number(summary.repeatCustomerRate || 0).toFixed(1)}%**. The fallback does not receive customer names or contact details, so it cannot safely rank individual customers.`
+        : '### Customer Summary\n\nBizNet currently tracks **${context.customersCount || 0} customers**. Individual customer rankings are not available in the supplied privacy-safe context.',
       suggestedActions: ['Review customer retention', 'Analyze revenue', 'Open Customers'],
     };
   }
@@ -126,8 +126,8 @@ export function generateFallbackResponse(
     const summary = context.supplierSummary;
     return {
       message: summary
-        ? `### Supplier Summary\n\nBizPilot tracks **${context.suppliersCount || 0} suppliers** and **${summary.activePurchaseOrders || 0} active purchase orders**. Recorded supplier purchases total **${money(summary.totalPurchases)}**.`
-        : `### Supplier Summary\n\nBizPilot currently tracks **${context.suppliersCount || 0} suppliers**. Detailed supplier and purchase-order metrics are not available in the supplied context.`,
+        ? `### Supplier Summary\n\nBizNet tracks **${context.suppliersCount || 0} suppliers** and **${summary.activePurchaseOrders || 0} active purchase orders**. Recorded supplier purchases total **${money(summary.totalPurchases)}**.`
+        : `### Supplier Summary\n\nBizNet currently tracks **${context.suppliersCount || 0} suppliers**. Detailed supplier and purchase-order metrics are not available in the supplied context.`,
       suggestedActions: ['Review Purchase Orders', 'Check inventory priorities', 'Analyze business health'],
     };
   }
@@ -152,7 +152,7 @@ export function generateFallbackResponse(
   }
 
   return {
-    message: 'I can analyze BizPilot sales, inventory, customers, suppliers, pricing, and profitability data. I do not currently have enough information to answer that specific question. Try asking about total revenue, low-stock products, product margins, reorder priorities, customer retention, or business health.',
+    message: 'I can analyze BizNet sales, inventory, customers, suppliers, pricing, and profitability data. I do not currently have enough information to answer that specific question. Try asking about total revenue, low-stock products, product margins, reorder priorities, customer retention, or business health.',
     suggestedActions: ['Ask for a revenue summary', 'Ask which products need reorder', 'Ask for a business health summary'],
   };
 }

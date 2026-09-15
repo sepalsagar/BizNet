@@ -72,7 +72,7 @@ export const SettingsView: React.FC = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fullBackup, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `bizpilot_backup_${new Date().toISOString().slice(0, 10)}.json`);
+    downloadAnchor.setAttribute("download", `biznet_backup_${new Date().toISOString().slice(0, 10)}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -104,7 +104,7 @@ export const SettingsView: React.FC = () => {
               <Building2 className="h-4 w-4 text-indigo-600" />
               <h2 className="text-sm font-bold text-slate-900">Organization Profile</h2>
             </div>
-            <p className="text-xs text-slate-500 mt-1 pl-6">Set the identity and display conventions used throughout BizPilot.</p>
+            <p className="text-xs text-slate-500 mt-1 pl-6">Set the identity and display conventions used throughout BizNet.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">

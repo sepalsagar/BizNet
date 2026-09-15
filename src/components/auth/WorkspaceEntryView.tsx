@@ -14,8 +14,8 @@ const workspaceOptions: Array<{
   {
     mode: 'demo',
     eyebrow: 'Demo / Interviewer',
-    title: 'Explore BizPilot',
-    description: 'Explore BizPilot with realistic Indian sample data.',
+    title: 'Explore BizNet',
+    description: 'Explore BizNet with realistic Indian sample data.',
     action: 'Enter Demo',
   },
   {
@@ -44,7 +44,7 @@ export const WorkspaceEntryView: React.FC = () => {
             <BarChart3 size={20} strokeWidth={2.25} />
           </div>
           <div>
-            <p className="text-sm font-bold tracking-[0.18em] text-slate-900">BIZPILOT</p>
+            <p className="text-sm font-bold tracking-[0.18em] text-slate-900">BIZNET</p>
             <p className="mt-0.5 text-xs font-medium text-slate-500">Business intelligence, made practical.</p>
           </div>
         </header>
@@ -86,7 +86,7 @@ export const WorkspaceEntryView: React.FC = () => {
         </section>
 
         <footer className="flex flex-col gap-2 border-t border-slate-200 pt-5 text-xs font-medium text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>BizPilot workspace selection</span>
+          <span>BizNet workspace selection</span>
           <span>Designed for focused decisions.</span>
         </footer>
       </div>

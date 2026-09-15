@@ -244,7 +244,7 @@ export const SearchOmnibar: React.FC<SearchOmnibarProps> = ({ isOpen, onClose })
             className="flex items-center gap-1 text-indigo-600 hover:text-indigo-700 font-semibold"
           >
             <Sparkles className="h-3 w-3" />
-            <span>Ask BizPilot Copilot instead</span>
+            <span>Ask BizNet Copilot instead</span>
           </button>
         </div>
       </div>

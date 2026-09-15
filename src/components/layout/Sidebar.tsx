@@ -142,7 +142,7 @@ export const Sidebar: React.FC = () => {
           {isSidebarOpen ? (
             <div className="flex flex-col min-w-0">
               <span className="text-base font-extrabold tracking-wider text-slate-900 uppercase font-sans leading-tight">
-                BIZPILOT
+                BIZNET
               </span>
               <span className="text-[11px] font-normal text-slate-500 tracking-normal leading-tight">
                 Business Intelligence

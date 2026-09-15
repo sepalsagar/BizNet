@@ -1,14 +1,58 @@
-# BizPilot
+# BizNet
 
-## Business Intelligence & Operations Platform for Indian SMBs
+## Business Intelligence & Operations Platform
 
-BizPilot is a portfolio project that brings everyday business operations into one focused workspace. It combines sales, inventory, customers, suppliers, purchase orders, analytics, pricing experiments, discount analysis, and an AI Assistant for practical business questions.
+A full-stack React + TypeScript + Express business operations and intelligence portfolio application.
+
+BizNet brings sales, inventory, customers, suppliers, purchase orders, analytics, pricing experiments, discount analysis, and an AI Assistant into one focused workspace.
+
+[Live Demo](https://biznet-nine.vercel.app/)
+
+## 🚀 Live Demo
+
+**[Try BizNet Live](https://biznet-nine.vercel.app/)**
+
+BizNet is deployed as a portfolio/demo application. Demo and Client workspaces use browser-local persistence; production authentication, database persistence, and multi-user tenancy are intentionally outside the current scope.
+
+## Repository
+
+This repository contains the BizNet application source, technical documentation, tests, and deployment-ready configuration.
+
+## 📸 Screenshots
+
+### Dashboard
+
+![BizNet dashboard](screenshots/dashboard.png)
+
+### Inventory
+
+![BizNet inventory](screenshots/inventory.png)
+
+### Sales
+
+![BizNet sales](screenshots/sales.png)
+
+### Analytics
+
+![BizNet analytics](screenshots/analytics.png)
+
+### Pricing
+
+![BizNet pricing simulator](screenshots/pricing.png)
+
+### AI Assistant
+
+![BizNet AI Assistant](screenshots/ai-assistant.png)
+
+### Workspace Selection
+
+![BizNet workspace selection](screenshots/workspace-entry.png)
 
 The included Demo workspace uses fictional Indian-market sample data and INR pricing. The Client workspace starts independently so the local application can be explored with a clean business dataset.
 
 ## Why It Was Built
 
-Small and medium businesses often manage sales, stock, purchasing, and customer information across disconnected tools. BizPilot explores what a single operational view could look like: current performance is visible alongside the actions needed to protect stock availability, margins, and cash flow.
+Small and medium businesses often manage sales, stock, purchasing, and customer information across disconnected tools. BizNet explores what a single operational view could look like: current performance is visible alongside the actions needed to protect stock availability, margins, and cash flow.
 
 ## Key Features
 
@@ -33,13 +77,21 @@ The `/login` entry screen is a simulated workspace selector, not an authenticati
 - **Demo:** loads the populated fictional Indian SMB dataset.
 - **Client:** loads an independent empty workspace that can be populated through the existing application workflows.
 
-Business collections are persisted separately in browser localStorage keys such as `bizpilot:demo:products:v1` and `bizpilot:client:products:v1`. The current implementation provides local workspace isolation, not authenticated users, backend accounts, or production multi-tenancy. Existing legacy unscoped BizPilot data is treated as Demo data. A versioned Demo seed migration refreshes recognized stale Western sample data without modifying Client storage.
+Business collections are persisted separately in browser localStorage keys such as `bizpilot:demo:products:v1` and `bizpilot:client:products:v1`. The current implementation provides local workspace isolation, not authenticated users, backend accounts, or production multi-tenancy. Existing legacy unscoped `bizpilot` data is treated as Demo data. A versioned Demo seed migration refreshes recognized stale Western sample data without modifying Client storage.
 
 ## Architecture Overview
 
 The browser runs the React application and owns business state through `BusinessContext`. The Express/Node.js server hosts the Vite development middleware or production static assets and exposes the AI endpoint. Business data is currently local to the browser; there is no production database.
 
 See [docs/architecture.md](docs/architecture.md) for the current data flow and a possible production evolution.
+
+## Deployment
+
+BizNet is deployed on Vercel.
+
+Live: [https://biznet-nine.vercel.app/](https://biznet-nine.vercel.app/)
+
+The deployment uses the existing Express backend/API and Vercel deployment configuration implemented in this repository.
 
 ## Technology Stack
 
@@ -119,18 +171,6 @@ GEMINI_API_KEY=your_gemini_api_key
 
 The key is optional for core dashboard workflows. Without it, the AI endpoint uses the deterministic fallback response path.
 
-## Screenshots
-
-The repository includes manually captured views of the current application:
-
-- [Workspace selection](screenshots/workspace-entry.png)
-- [Dashboard](screenshots/dashboard.png)
-- [Sales](screenshots/sales.png)
-- [Inventory](screenshots/inventory.png)
-- [Analytics](screenshots/analytics.png)
-- [Pricing simulator](screenshots/pricing.png)
-- [AI Assistant](screenshots/ai-assistant.png)
-
 ## Current Limitations
 
 - Data is stored in one browser's localStorage and is not synchronized across devices.
@@ -141,7 +181,7 @@ The repository includes manually captured views of the current application:
 
 ## Future Production Evolution
 
-A production version could introduce authenticated users, server-owned workspace membership, a database-backed business-data API, role-based authorization, encrypted secrets and persistence, audit logs, observability, and deployment-specific scaling. Those are future architecture considerations, not current BizPilot functionality.
+A production version could introduce authenticated users, server-owned workspace membership, a database-backed business-data API, role-based authorization, encrypted secrets and persistence, audit logs, observability, and deployment-specific scaling. Those are future architecture considerations, not current BizNet functionality.
 
 ## Project Structure
 

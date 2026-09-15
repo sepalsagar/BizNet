@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
       case 'analytics': return 'Performance & Margin Analytics';
       case 'pricing': return 'Pricing & Margin Simulator';
       case 'discounts': return 'Discount & Promotion Optimizer';
-      case 'ai_advisor': return 'BizPilot Copilot AI Advisor';
+      case 'ai_advisor': return 'BizNet Copilot AI Advisor';
       case 'settings': return 'Business Settings & Data Controls';
       default: return 'Business Dashboard';
     }

@@ -1,5 +1,5 @@
 {
-  "name": "BizPilot",
+  "name": "BizNet",
   "description": "Intelligent business operations management and analytics dashboard for growing enterprises.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
