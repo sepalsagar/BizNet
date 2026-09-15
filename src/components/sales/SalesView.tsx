@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
 import { formatIndianCurrency } from '../../utils/formatters';
+import { formatIndianDate } from '../../utils/formatters';
 import { Order, OrderStatus } from '../../types';
 import { CreateOrderModal } from './CreateOrderModal';
 import { ConfirmationModal } from '../common/ConfirmationModal';
@@ -346,7 +347,7 @@ export const SalesView: React.FC = () => {
 
                     {/* Date */}
                     <td className="py-3.5 px-4 text-slate-500 font-mono">
-                      {o.date}
+                      {formatIndianDate(o.date)}
                     </td>
 
                     {/* Customer */}
@@ -429,7 +430,7 @@ export const SalesView: React.FC = () => {
                     Order {selectedOrder.orderNumber}
                   </h2>
                   <p className="text-xs text-slate-500 font-mono mt-0.5">
-                    {selectedOrder.date} • {selectedOrder.channel}
+                    {formatIndianDate(selectedOrder.date)} • {selectedOrder.channel}
                   </p>
                 </div>
               </div>

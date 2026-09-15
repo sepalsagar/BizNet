@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
 import { formatIndianCurrency } from '../../utils/formatters';
+import { formatIndianDate } from '../../utils/formatters';
 import { PurchaseOrder, PurchaseOrderStatus } from '../../types';
 
 interface PurchaseOrderDetailsModalProps {
@@ -89,7 +90,7 @@ export const PurchaseOrderDetailsModal: React.FC<PurchaseOrderDetailsModalProps>
                 {getStatusBadge(po.status)}
               </div>
               <p className="text-xs text-slate-500">
-                Created {po.date} • {po.supplierName}
+                Created {formatIndianDate(po.date)} • {po.supplierName}
               </p>
             </div>
           </div>
@@ -136,7 +137,7 @@ export const PurchaseOrderDetailsModal: React.FC<PurchaseOrderDetailsModalProps>
                 {po.stockReceived ? 'Stock Added' : 'Pending Receipt'}
               </p>
               <p className="text-slate-500 text-[11px]">
-                {po.receivedAt ? `Received: ${po.receivedAt}` : 'No stock added yet'}
+                {po.receivedAt ? `Received: ${formatIndianDate(po.receivedAt)}` : 'No stock added yet'}
               </p>
             </div>
           </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Plus } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
 import { formatIndianCurrency } from '../../utils/formatters';
+import { formatIndianDate } from '../../utils/formatters';
 
 interface DashboardViewProps {
   onOpenCreateOrder: () => void;
@@ -157,7 +158,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                         {order.customerName}
                       </td>
                       <td className="px-5 py-3.5 text-slate-500">
-                        {order.date}
+                        {formatIndianDate(order.date)}
                       </td>
                       <td className="px-5 py-3.5 text-right font-medium text-slate-900 font-mono">
                         {formatCurrency(order.totalAmount)}

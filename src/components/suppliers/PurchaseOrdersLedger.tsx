@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
 import { formatIndianCurrency } from '../../utils/formatters';
+import { formatIndianDate } from '../../utils/formatters';
 import { PurchaseOrder, PurchaseOrderStatus } from '../../types';
 import { PurchaseOrderDetailsModal } from './PurchaseOrderDetailsModal';
 
@@ -227,7 +228,7 @@ export const PurchaseOrdersLedger: React.FC<PurchaseOrdersLedgerProps> = ({ onCr
                       </div>
                     </td>
                     <td className="px-5 py-3.5 whitespace-nowrap text-slate-500 font-medium">
-                      {po.date}
+                      {formatIndianDate(po.date)}
                     </td>
                     <td className="px-5 py-3.5">
                       <p className="font-bold text-slate-900">{po.supplierName}</p>

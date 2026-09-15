@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
 import { formatIndianCurrency } from '../../utils/formatters';
+import { formatIndianDate } from '../../utils/formatters';
 import { Customer, CustomerTier } from '../../types';
 
 export const CustomersView: React.FC = () => {
@@ -275,7 +276,7 @@ export const CustomersView: React.FC = () => {
 
                     {/* Last Order Date */}
                     <td className="py-3.5 px-4 text-slate-500 font-mono text-[11px]">
-                      {c.lastOrderDate}
+                      {formatIndianDate(c.lastOrderDate)}
                     </td>
 
                     {/* Profile Action */}
@@ -357,7 +358,7 @@ export const CustomersView: React.FC = () => {
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="font-bold text-slate-900">{o.orderNumber}</span>
-                            <span className="text-[10px] text-slate-400 font-mono">{o.date}</span>
+                            <span className="text-[10px] text-slate-400 font-mono">{formatIndianDate(o.date)}</span>
                           </div>
                           <p className="text-[11px] text-slate-500 mt-0.5">
                             {o.items.map(i => `${i.quantity}x ${i.productName}`).join(', ')}

@@ -79,17 +79,17 @@ export const SettingsView: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-4xl" id="bizpilot-settings-view">
+    <div className="space-y-8 max-w-4xl" id="bizpilot-settings-view">
       {/* Header */}
-      <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-black text-slate-900">Storefront & System Settings</h2>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Configure financial benchmarks, currency formatting, and operational telemetry thresholds.
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 font-sans">Settings</h1>
+          <p className="text-sm text-slate-500 mt-1">
+            Configure your business profile, financial targets, alerts, and local data controls.
           </p>
         </div>
         {savedSuccess && (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold animate-fade-in">
+          <div className="flex items-center gap-1.5 self-start sm:self-center px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium animate-fade-in">
             <CheckCircle2 className="h-4 w-4" />
             <span>Preferences Saved</span>
           </div>
@@ -98,10 +98,13 @@ export const SettingsView: React.FC = () => {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Business Profile */}
-        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-            <Building2 className="h-4 w-4 text-indigo-600" />
-            <h3 className="text-sm font-bold text-slate-900">Organization Profile</h3>
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-5">
+          <div className="pb-3 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <Building2 className="h-4 w-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-slate-900">Organization Profile</h2>
+            </div>
+            <p className="text-xs text-slate-500 mt-1 pl-6">Set the identity and display conventions used throughout BizPilot.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -114,7 +117,7 @@ export const SettingsView: React.FC = () => {
                 required
                 value={formData.companyName}
                 onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-indigo-500 focus:outline-hidden"
+                className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50 focus:border-slate-400 focus:outline-hidden focus:bg-white transition-colors"
               />
             </div>
 
@@ -130,7 +133,7 @@ export const SettingsView: React.FC = () => {
                     const symbols: Record<string, string> = { USD: '$', EUR: '€', GBP: '£', CAD: 'CA$', AUD: 'A$' };
                     setFormData({ ...formData, currency: curr, currencySymbol: symbols[curr] || '$' });
                   }}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-indigo-500 focus:outline-hidden bg-white"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50 focus:border-slate-400 focus:outline-hidden focus:bg-white transition-colors"
                 >
                   <option value="USD">USD ($)</option>
                   <option value="EUR">EUR (€)</option>
@@ -143,7 +146,7 @@ export const SettingsView: React.FC = () => {
                   value={formData.currencySymbol}
                   onChange={(e) => setFormData({ ...formData, currencySymbol: e.target.value })}
                   placeholder="Symbol"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-indigo-500 focus:outline-hidden"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50 focus:border-slate-400 focus:outline-hidden focus:bg-white transition-colors"
                 />
               </div>
             </div>
@@ -151,10 +154,13 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Financial Benchmarks */}
-        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-            <Percent className="h-4 w-4 text-indigo-600" />
-            <h3 className="text-sm font-bold text-slate-900">Financial Targets & Thresholds</h3>
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-5">
+          <div className="pb-3 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <Percent className="h-4 w-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-slate-900">Financial Targets & Thresholds</h2>
+            </div>
+            <p className="text-xs text-slate-500 mt-1 pl-6">Set the benchmarks used by operational alerts and performance diagnostics.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
@@ -168,7 +174,7 @@ export const SettingsView: React.FC = () => {
                 max="95"
                 value={formData.targetMarginPct}
                 onChange={(e) => setFormData({ ...formData, targetMarginPct: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-indigo-500 focus:outline-hidden"
+                className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50 focus:border-slate-400 focus:outline-hidden focus:bg-white transition-colors"
               />
               <p className="text-[10px] text-slate-400 mt-1">
                 Items below this % are flagged on alerts and diagnostics.
@@ -184,7 +190,7 @@ export const SettingsView: React.FC = () => {
                 min="1"
                 value={formData.lowStockThresholdDefault}
                 onChange={(e) => setFormData({ ...formData, lowStockThresholdDefault: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-indigo-500 focus:outline-hidden"
+                className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50 focus:border-slate-400 focus:outline-hidden focus:bg-white transition-colors"
               />
               <p className="text-[10px] text-slate-400 mt-1">
                 Minimum inventory level before restock reminder fires.
@@ -201,7 +207,7 @@ export const SettingsView: React.FC = () => {
                 min="0"
                 value={formData.taxRate}
                 onChange={(e) => setFormData({ ...formData, taxRate: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-indigo-500 focus:outline-hidden"
+                className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50 focus:border-slate-400 focus:outline-hidden focus:bg-white transition-colors"
               />
               <p className="text-[10px] text-slate-400 mt-1">
                 Default point-of-sale tax rate.
@@ -211,16 +217,19 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Notifications & Automation */}
-        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-            <Bell className="h-4 w-4 text-indigo-600" />
-            <h3 className="text-sm font-bold text-slate-900">Automated Intelligence Notifications</h3>
+        <div className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-5">
+          <div className="pb-3 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <Bell className="h-4 w-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-slate-900">Automated Intelligence Notifications</h2>
+            </div>
+            <p className="text-xs text-slate-500 mt-1 pl-6">Control proactive alerts for inventory and margin conditions.</p>
           </div>
 
-          <div className="flex items-center justify-between text-xs py-2">
+          <div className="flex items-center justify-between gap-4 text-xs py-2">
             <div>
               <p className="font-bold text-slate-900">Enable Stockout & Margin Alert Notifications</p>
-              <p className="text-slate-500">
+              <p className="text-slate-500 mt-1">
                 Receive proactive alert pills in the header when critical SKUs breach reorder thresholds.
               </p>
             </div>
@@ -234,10 +243,10 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-end gap-3 pt-2">
+        <div className="flex items-center justify-end gap-3 pt-1">
           <button
             type="submit"
-            className="flex items-center gap-1.5 px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-600/20 transition-all"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium shadow-2xs transition-colors"
           >
             <Save className="h-4 w-4" />
             <span>Save Settings</span>
@@ -246,17 +255,19 @@ export const SettingsView: React.FC = () => {
       </form>
 
       {/* Backup & System Maintenance */}
-      <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
-        <h3 className="text-sm font-bold text-slate-900">Data Management & Disaster Recovery</h3>
-        <p className="text-xs text-slate-500">
+      <div className="p-5 rounded-xl bg-slate-50/70 border border-slate-200/90 space-y-4">
+        <div>
+          <h2 className="text-sm font-bold text-slate-900">Data Management & Disaster Recovery</h2>
+          <p className="text-xs text-slate-500 mt-1">
           All data is persisted locally in your browser storage. You can export a full JSON snapshot anytime or reset to initial demo seeds.
-        </p>
+          </p>
+        </div>
 
         <div className="flex flex-wrap items-center gap-3 pt-2">
           <button
             type="button"
             onClick={handleExportData}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-semibold shadow-2xs transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-medium shadow-2xs transition-colors"
           >
             <Download className="h-3.5 w-3.5" />
             <span>Export Full Data Snapshot (.JSON)</span>
@@ -265,7 +276,7 @@ export const SettingsView: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsResetConfirmOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-red-200 text-red-700 hover:bg-red-50 text-xs font-semibold shadow-2xs transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-rose-200 text-rose-700 hover:bg-rose-50 text-xs font-medium shadow-2xs transition-colors"
           >
             <RotateCcw className="h-3.5 w-3.5" />
             <span>Reset to Default Demo Datasets</span>
@@ -273,7 +284,7 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {resetSuccessMessage && (
-          <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-xs font-semibold animate-fade-in">
+          <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-xs font-medium animate-fade-in">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
               <span>{resetSuccessMessage}</span>

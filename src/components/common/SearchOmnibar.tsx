@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, Package, Users, ShoppingCart, ArrowRight, X, Sparkles } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
 import { formatIndianCurrency } from '../../utils/formatters';
+import { formatIndianDate } from '../../utils/formatters';
 
 interface SearchOmnibarProps {
   isOpen: boolean;
@@ -215,7 +216,7 @@ export const SearchOmnibar: React.FC<SearchOmnibarProps> = ({ isOpen, onClose })
                       >
                         <div>
                           <p className="text-xs font-semibold text-slate-900">{o.orderNumber}</p>
-                          <p className="text-[11px] text-slate-500">{o.customerName} • {o.date}</p>
+                          <p className="text-[11px] text-slate-500">{o.customerName} • {formatIndianDate(o.date)}</p>
                         </div>
                         <div className="text-right">
                           <p className="text-xs font-bold text-slate-900">{formatCurrency(o.totalAmount)}</p>
