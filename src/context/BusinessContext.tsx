@@ -11,7 +11,9 @@ import {
   OrderStatus,
   PurchaseOrder,
   PurchaseOrderItem,
-  PurchaseOrderStatus
+  PurchaseOrderStatus,
+  WorkspaceIdentity,
+  WorkspaceMode
 } from '../types';
 import { 
   initialProducts, 
@@ -43,6 +45,8 @@ interface DailyTrend {
 }
 
 interface BusinessContextType {
+  workspace: WorkspaceIdentity;
+  switchWorkspace: (mode: WorkspaceMode) => void;
   products: Product[];
   customers: Customer[];
   orders: Order[];
@@ -110,13 +114,77 @@ interface BusinessContextType {
 
 const BusinessContext = createContext<BusinessContextType | undefined>(undefined);
 
-const STORAGE_KEYS = {
+const LEGACY_STORAGE_KEYS = {
   PRODUCTS: 'bizpilot_products_v1',
   CUSTOMERS: 'bizpilot_customers_v1',
   ORDERS: 'bizpilot_orders_v1',
   SUPPLIERS: 'bizpilot_suppliers_v1',
   PURCHASE_ORDERS: 'bizpilot_purchase_orders_v1',
   SETTINGS: 'bizpilot_settings_v1',
+};
+
+const WORKSPACE_IDS: Record<WorkspaceMode, string> = {
+  demo: 'demo',
+  client: 'client',
+};
+
+const createWorkspace = (mode: WorkspaceMode): WorkspaceIdentity => ({
+  mode,
+  id: WORKSPACE_IDS[mode],
+});
+
+const workspaceStorageKey = (workspace: WorkspaceIdentity, collection: string) =>
+  `bizpilot:${workspace.id}:${collection}:v1`;
+
+const cloneData = <T,>(data: T): T => JSON.parse(JSON.stringify(data)) as T;
+
+const readStoredCollection = <T,>(
+  workspace: WorkspaceIdentity,
+  collection: string,
+  fallback: T,
+  legacyKey?: string,
+): T => {
+  const scopedValue = localStorage.getItem(workspaceStorageKey(workspace, collection));
+  const value = scopedValue ?? (workspace.mode === 'demo' && legacyKey
+    ? localStorage.getItem(legacyKey)
+    : null);
+
+  if (value) {
+    try {
+      return cloneData(JSON.parse(value) as T);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return cloneData(fallback);
+};
+
+interface WorkspaceData {
+  products: Product[];
+  customers: Customer[];
+  orders: Order[];
+  suppliers: Supplier[];
+  purchaseOrders: PurchaseOrder[];
+  settings: BusinessSettings;
+}
+
+const getWorkspaceData = (workspace: WorkspaceIdentity): WorkspaceData => ({
+  products: readStoredCollection(workspace, 'products', workspace.mode === 'demo' ? initialProducts : [], LEGACY_STORAGE_KEYS.PRODUCTS),
+  customers: readStoredCollection(workspace, 'customers', workspace.mode === 'demo' ? initialCustomers : [], LEGACY_STORAGE_KEYS.CUSTOMERS),
+  orders: readStoredCollection(workspace, 'orders', workspace.mode === 'demo' ? initialOrders : [], LEGACY_STORAGE_KEYS.ORDERS),
+  suppliers: readStoredCollection(workspace, 'suppliers', workspace.mode === 'demo' ? initialSuppliers : [], LEGACY_STORAGE_KEYS.SUPPLIERS),
+  purchaseOrders: readStoredCollection(workspace, 'purchaseOrders', workspace.mode === 'demo' ? initialPurchaseOrders : [], LEGACY_STORAGE_KEYS.PURCHASE_ORDERS),
+  settings: readStoredCollection(workspace, 'settings', initialSettings, LEGACY_STORAGE_KEYS.SETTINGS),
+});
+
+const saveWorkspaceData = (workspace: WorkspaceIdentity, data: WorkspaceData) => {
+  localStorage.setItem(workspaceStorageKey(workspace, 'products'), JSON.stringify(data.products));
+  localStorage.setItem(workspaceStorageKey(workspace, 'customers'), JSON.stringify(data.customers));
+  localStorage.setItem(workspaceStorageKey(workspace, 'orders'), JSON.stringify(data.orders));
+  localStorage.setItem(workspaceStorageKey(workspace, 'suppliers'), JSON.stringify(data.suppliers));
+  localStorage.setItem(workspaceStorageKey(workspace, 'purchaseOrders'), JSON.stringify(data.purchaseOrders));
+  localStorage.setItem(workspaceStorageKey(workspace, 'settings'), JSON.stringify(data.settings));
 };
 
 export const TAB_ROUTES: Record<ActiveTab, string> = {
@@ -160,54 +228,15 @@ function determineStockStatus(stock: number, reorderPoint: number): StockStatus 
 export const BusinessProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [workspace, setWorkspace] = useState<WorkspaceIdentity>(() => createWorkspace('demo'));
+  const initialWorkspaceData = getWorkspaceData(workspace);
 
-  const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) { console.error(e); }
-    }
-    return initialProducts;
-  });
-
-  const [customers, setCustomers] = useState<Customer[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.CUSTOMERS);
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) { console.error(e); }
-    }
-    return initialCustomers;
-  });
-
-  const [orders, setOrders] = useState<Order[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.ORDERS);
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) { console.error(e); }
-    }
-    return initialOrders;
-  });
-
-  const [suppliers, setSuppliers] = useState<Supplier[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.SUPPLIERS);
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) { console.error(e); }
-    }
-    return initialSuppliers;
-  });
-
-  const [purchaseOrders, setPurchaseOrders] = useState<PurchaseOrder[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.PURCHASE_ORDERS);
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) { console.error(e); }
-    }
-    return initialPurchaseOrders;
-  });
-
-  const [settings, setSettings] = useState<BusinessSettings>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.SETTINGS);
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) { console.error(e); }
-    }
-    return initialSettings;
-  });
+  const [products, setProducts] = useState<Product[]>(initialWorkspaceData.products);
+  const [customers, setCustomers] = useState<Customer[]>(initialWorkspaceData.customers);
+  const [orders, setOrders] = useState<Order[]>(initialWorkspaceData.orders);
+  const [suppliers, setSuppliers] = useState<Supplier[]>(initialWorkspaceData.suppliers);
+  const [purchaseOrders, setPurchaseOrders] = useState<PurchaseOrder[]>(initialWorkspaceData.purchaseOrders);
+  const [settings, setSettings] = useState<BusinessSettings>(initialWorkspaceData.settings);
 
   const activeTab = useMemo<ActiveTab>(() => {
     return getTabFromPath(location.pathname);
@@ -223,30 +252,50 @@ export const BusinessProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // Save to localStorage when state changes
+  const switchWorkspace = useCallback((mode: WorkspaceMode) => {
+    const nextWorkspace = createWorkspace(mode);
+    const nextData = getWorkspaceData(nextWorkspace);
+    saveWorkspaceData(workspace, {
+      products,
+      customers,
+      orders,
+      suppliers,
+      purchaseOrders,
+      settings,
+    });
+    setWorkspace(nextWorkspace);
+    setProducts(nextData.products);
+    setCustomers(nextData.customers);
+    setOrders(nextData.orders);
+    setSuppliers(nextData.suppliers);
+    setPurchaseOrders(nextData.purchaseOrders);
+    setSettings(nextData.settings);
+  }, [customers, orders, products, purchaseOrders, settings, suppliers, workspace]);
+
+  // Save each collection only inside the active workspace namespace.
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
-  }, [products]);
+    localStorage.setItem(workspaceStorageKey(workspace, 'products'), JSON.stringify(products));
+  }, [products, workspace]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.CUSTOMERS, JSON.stringify(customers));
-  }, [customers]);
+    localStorage.setItem(workspaceStorageKey(workspace, 'customers'), JSON.stringify(customers));
+  }, [customers, workspace]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.ORDERS, JSON.stringify(orders));
-  }, [orders]);
+    localStorage.setItem(workspaceStorageKey(workspace, 'orders'), JSON.stringify(orders));
+  }, [orders, workspace]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.SUPPLIERS, JSON.stringify(suppliers));
-  }, [suppliers]);
+    localStorage.setItem(workspaceStorageKey(workspace, 'suppliers'), JSON.stringify(suppliers));
+  }, [suppliers, workspace]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.PURCHASE_ORDERS, JSON.stringify(purchaseOrders));
-  }, [purchaseOrders]);
+    localStorage.setItem(workspaceStorageKey(workspace, 'purchaseOrders'), JSON.stringify(purchaseOrders));
+  }, [purchaseOrders, workspace]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
-  }, [settings]);
+    localStorage.setItem(workspaceStorageKey(workspace, 'settings'), JSON.stringify(settings));
+  }, [settings, workspace]);
 
   // Utility formatters
   const formatCurrency = (amount: number) => {
@@ -636,18 +685,31 @@ export const BusinessProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   const resetToDefaultData = () => {
-    setProducts(initialProducts);
-    setCustomers(initialCustomers);
-    setOrders(initialOrders);
-    setSuppliers(initialSuppliers);
-    setPurchaseOrders(initialPurchaseOrders);
-    setSettings(initialSettings);
-    localStorage.removeItem(STORAGE_KEYS.PRODUCTS);
-    localStorage.removeItem(STORAGE_KEYS.CUSTOMERS);
-    localStorage.removeItem(STORAGE_KEYS.ORDERS);
-    localStorage.removeItem(STORAGE_KEYS.SUPPLIERS);
-    localStorage.removeItem(STORAGE_KEYS.PURCHASE_ORDERS);
-    localStorage.removeItem(STORAGE_KEYS.SETTINGS);
+    const resetData = workspace.mode === 'demo'
+      ? {
+          products: initialProducts,
+          customers: initialCustomers,
+          orders: initialOrders,
+          suppliers: initialSuppliers,
+          purchaseOrders: initialPurchaseOrders,
+          settings: initialSettings,
+        }
+      : {
+          products: [],
+          customers: [],
+          orders: [],
+          suppliers: [],
+          purchaseOrders: [],
+          settings: initialSettings,
+        };
+    setProducts(cloneData(resetData.products));
+    setCustomers(cloneData(resetData.customers));
+    setOrders(cloneData(resetData.orders));
+    setSuppliers(cloneData(resetData.suppliers));
+    setPurchaseOrders(cloneData(resetData.purchaseOrders));
+    setSettings(cloneData(resetData.settings));
+    Object.values(['products', 'customers', 'orders', 'suppliers', 'purchaseOrders', 'settings'])
+      .forEach((collection) => localStorage.removeItem(workspaceStorageKey(workspace, collection)));
   };
 
   const exportDataJSON = () => {
@@ -848,6 +910,8 @@ export const BusinessProvider: React.FC<{ children: ReactNode }> = ({ children }
   return (
     <BusinessContext.Provider
       value={{
+        workspace,
+        switchWorkspace,
         products,
         customers,
         orders,

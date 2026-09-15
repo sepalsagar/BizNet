@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { BusinessProvider, useBusiness } from './context/BusinessContext';
 import { Sidebar } from './components/layout/Sidebar';
 import { Header } from './components/layout/Header';
@@ -7,6 +7,7 @@ import { NotificationDrawer } from './components/layout/NotificationDrawer';
 import { SearchOmnibar } from './components/common/SearchOmnibar';
 import { CreateOrderModal } from './components/sales/CreateOrderModal';
 import { ProductModal } from './components/inventory/ProductModal';
+import { WorkspaceEntryView } from './components/auth/WorkspaceEntryView';
 
 // Views - Dashboard is statically loaded for instant landing page TTI
 import { DashboardView } from './components/dashboard/DashboardView';
@@ -42,6 +43,7 @@ const SettingsView = React.lazy(() =>
 );
 
 const AppContent: React.FC = () => {
+  const location = useLocation();
   const { isSidebarOpen } = useBusiness();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -52,6 +54,10 @@ const AppContent: React.FC = () => {
   React.useEffect(() => {
     (window as any).__openOmnibar = () => setIsSearchOpen(true);
   }, []);
+
+  if (location.pathname === '/login') {
+    return <WorkspaceEntryView />;
+  }
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-slate-100 font-sans text-slate-800">
@@ -75,7 +81,7 @@ const AppContent: React.FC = () => {
           <div className="max-w-7xl mx-auto pb-12">
             <React.Suspense fallback={<RouteLoadingFallback />}>
               <Routes>
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/" element={<Navigate to="/login" replace />} />
                 <Route
                   path="/dashboard"
                   element={

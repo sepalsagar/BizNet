@@ -146,3 +146,10 @@ export type ActiveTab =
   | 'discounts' 
   | 'ai_advisor' 
   | 'settings';
+
+export type WorkspaceMode = 'demo' | 'client';
+
+export interface WorkspaceIdentity {
+  mode: WorkspaceMode;
+  id: string;
+}
