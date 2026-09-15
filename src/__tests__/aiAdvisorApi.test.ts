@@ -2,54 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import express from 'express';
 import http from 'http';
 import { rateLimit } from 'express-rate-limit';
-
-// Reusable advisor handler logic matching server.ts
-function generateHeuristicResponse(query: string, ctx: any) {
-  const q = (query || '').toLowerCase();
-  const rev = ctx?.totalRevenue ? `$${Number(ctx.totalRevenue).toLocaleString()}` : '$15,480';
-  const margin = ctx?.grossMarginPct ? `${Number(ctx.grossMarginPct).toFixed(1)}%` : '58.4%';
-  const lowStock = ctx?.lowStockCount ?? 5;
-  const outOfStock = ctx?.outOfStockCount ?? 1;
-
-  if (q.includes('stock') || q.includes('inventory') || q.includes('reorder')) {
-    return {
-      message: `### Inventory Health & Reorder Strategy\n\n- **Stockout Risks**: You currently have **${outOfStock} out-of-stock items** and **${lowStock} items at or below reorder points**.`,
-      suggestedActions: [
-        'Open Purchase Order with Apex Precision',
-        'Review slow-moving products list',
-        'Increase safety stock threshold',
-      ],
-    };
-  }
-
-  if (q.includes('margin') || q.includes('profit') || q.includes('pricing') || q.includes('cogs')) {
-    return {
-      message: `### Profit Margin Optimization Audit\n\nYour current overall Gross Margin stands at **${margin}** on **${rev}** total volume.`,
-      suggestedActions: [
-        'Simulate +5% price adjustment in Pricing tool',
-        'Review wholesale tier price rules',
-      ],
-    };
-  }
-
-  if (q.includes('discount') || q.includes('sale') || q.includes('promotion') || q.includes('promo')) {
-    return {
-      message: `### Promotional Strategy & Discount Guardrails\n\nApplying blanket discounts without volume elasticity checks often destroys gross profit.`,
-      suggestedActions: [
-        'Configure Discount Optimizer',
-        'Target VIP segment with exclusive perk',
-      ],
-    };
-  }
-
-  return {
-    message: `### Executive Operational Summary\n\nBizPilot has processed your operational dataset across Inventory, Sales, Customers, and Suppliers:\n\n- **Gross Performance**: Total processed sales of **${rev}** delivering a healthy gross margin of **${margin}**.`,
-    suggestedActions: [
-      'Show low stock inventory alerts',
-      'Analyze gross profit by category',
-    ],
-  };
-}
+import { generateFallbackResponse } from '../utils/aiFallback';
 
 function createServerInstance(maxRequests = 20) {
   const app = express();
@@ -77,7 +30,7 @@ function createServerInstance(maxRequests = 20) {
       return;
     }
 
-    const heuristic = generateHeuristicResponse(trimmedQuery, businessContext);
+    const heuristic = generateFallbackResponse(trimmedQuery, businessContext);
     res.json({
       ...heuristic,
       source: 'heuristic_engine',
@@ -276,8 +229,8 @@ describe('AI Advisor API Contract & Security Validations', () => {
     const body = await res.json();
     expect(res.status).toBe(200);
     expect(body.source).toBe('heuristic_engine');
-    expect(body.message).toContain('Inventory Health & Reorder Strategy');
-    expect(body.message).toContain('3 items at or below reorder points');
+    expect(body.message).toContain('Inventory Priorities');
+    expect(body.message).toContain('3 product(s) at or below their reorder points');
     expect(Array.isArray(body.suggestedActions)).toBe(true);
     expect(body.suggestedActions.length).toBeGreaterThan(0);
   });
@@ -299,7 +252,7 @@ describe('AI Advisor API Contract & Security Validations', () => {
 
     const body = await res.json();
     expect(res.status).toBe(200);
-    expect(body.message).toContain('Profit Margin Optimization Audit');
+    expect(body.message).toContain('Product Margin Leaders');
     expect(body.message).toContain('48.5%');
   });
 });

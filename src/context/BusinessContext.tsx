@@ -250,7 +250,7 @@ export const BusinessProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   // Utility formatters
   const formatCurrency = (amount: number) => {
-    return `${settings.currencySymbol || '$'}${amount.toLocaleString('en-US', {
+    return `${settings.currencySymbol || '₹'}${amount.toLocaleString('en-IN', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })}`;

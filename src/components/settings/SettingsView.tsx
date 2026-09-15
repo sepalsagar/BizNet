@@ -130,11 +130,12 @@ export const SettingsView: React.FC = () => {
                   value={formData.currency}
                   onChange={(e) => {
                     const curr = e.target.value;
-                    const symbols: Record<string, string> = { USD: '$', EUR: '€', GBP: '£', CAD: 'CA$', AUD: 'A$' };
+                    const symbols: Record<string, string> = { INR: '₹', USD: '$', EUR: '€', GBP: '£', CAD: 'CA$', AUD: 'A$' };
                     setFormData({ ...formData, currency: curr, currencySymbol: symbols[curr] || '$' });
                   }}
                   className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50/50 focus:border-slate-400 focus:outline-hidden focus:bg-white transition-colors"
                 >
+                    <option value="INR">INR (₹)</option>
                   <option value="USD">USD ($)</option>
                   <option value="EUR">EUR (€)</option>
                   <option value="GBP">GBP (£)</option>

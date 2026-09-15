@@ -120,7 +120,8 @@ export const AiAdvisorView: React.FC = () => {
     lowStockProducts, 
     outOfStockProducts,
     setActiveTab,
-    settings 
+    settings,
+    repeatCustomerRate
   } = useBusiness();
 
   const [input, setInput] = useState('');
@@ -189,11 +190,32 @@ export const AiAdvisorView: React.FC = () => {
             topLowStock: lowStockProducts.slice(0, 3).map(p => ({ 
               name: p.name, 
               stock: p.stock, 
-              reorder: p.reorderPoint 
+              reorderPoint: p.reorderPoint,
+              id: p.id,
+              costPrice: p.costPrice,
+              sellingPrice: p.sellingPrice,
+              salesCount: p.salesCount,
+              supplierName: p.supplierName,
+            })),
+            products: products.map(p => ({
+              id: p.id,
+              name: p.name,
+              stock: p.stock,
+              reorderPoint: p.reorderPoint,
+              costPrice: p.costPrice,
+              sellingPrice: p.sellingPrice,
+              salesCount: p.salesCount,
+              supplierName: p.supplierName,
             })),
             recentOrdersCount: orders.length,
             customersCount: customers.length,
             suppliersCount: suppliers.length,
+            customerSummary: {
+              totalSpent: customers.reduce((sum, customer) => sum + customer.totalSpent, 0),
+              repeatCustomerRate,
+              vipCount: customers.filter(customer => customer.tier === 'VIP').length,
+              wholesaleCount: customers.filter(customer => customer.tier === 'Wholesale').length,
+            },
           },
           history,
         }),

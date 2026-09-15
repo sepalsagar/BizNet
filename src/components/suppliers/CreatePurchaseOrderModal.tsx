@@ -346,7 +346,7 @@ export const CreatePurchaseOrderModal: React.FC<CreatePurchaseOrderModalProps> =
 
                     {/* Unit Cost */}
                     <div className="w-28">
-                      <label className="block text-[10px] uppercase font-bold text-slate-400 mb-0.5">Unit Cost ($)</label>
+                      <label className="block text-[10px] uppercase font-bold text-slate-400 mb-0.5">Unit Cost (₹)</label>
                       <input
                         type="number"
                         min="0"
