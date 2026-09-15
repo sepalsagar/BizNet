@@ -15,6 +15,7 @@ import {
   ArrowUpRight
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 import { Customer, CustomerTier } from '../../types';
 
 export const CustomersView: React.FC = () => {
@@ -22,10 +23,11 @@ export const CustomersView: React.FC = () => {
     customers, 
     orders, 
     addCustomer, 
-    formatCurrency, 
     formatPercent,
     repeatCustomerRate 
   } = useBusiness();
+
+  const formatCurrency = formatIndianCurrency;
 
   const [search, setSearch] = useState('');
   const [tierFilter, setTierFilter] = useState<'All' | CustomerTier>('All');

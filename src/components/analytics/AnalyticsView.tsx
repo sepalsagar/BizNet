@@ -24,6 +24,7 @@ import {
   Legend 
 } from 'recharts';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 
 type TimeframeOption = '7d' | '14d' | '30d';
 
@@ -31,10 +32,11 @@ export const AnalyticsView: React.FC = () => {
   const { 
     products, 
     orders, 
-    formatCurrency, 
     formatPercent,
     settings 
   } = useBusiness();
+
+  const formatCurrency = formatIndianCurrency;
 
   // Local timeframe state for Analytics
   const [timeframe, setTimeframe] = useState<TimeframeOption>('14d');
@@ -254,7 +256,7 @@ export const AnalyticsView: React.FC = () => {
                     ))}
                   </Pie>
                   <Tooltip 
-                    formatter={(value: any) => [`$${Number(value).toLocaleString()}`, 'Revenue']}
+                    formatter={(value: any) => [formatIndianCurrency(Number(value)), 'Revenue']}
                     contentStyle={{ backgroundColor: '#0f172a', borderRadius: '8px', color: '#fff', fontSize: '12px' }}
                   />
                   <Legend verticalAlign="bottom" height={36} iconType="circle" />

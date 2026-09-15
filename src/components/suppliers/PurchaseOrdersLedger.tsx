@@ -13,6 +13,7 @@ import {
   Filter
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 import { PurchaseOrder, PurchaseOrderStatus } from '../../types';
 import { PurchaseOrderDetailsModal } from './PurchaseOrderDetailsModal';
 
@@ -21,7 +22,8 @@ interface PurchaseOrdersLedgerProps {
 }
 
 export const PurchaseOrdersLedger: React.FC<PurchaseOrdersLedgerProps> = ({ onCreatePO }) => {
-  const { purchaseOrders, updatePurchaseOrderStatus, formatCurrency } = useBusiness();
+  const { purchaseOrders, updatePurchaseOrderStatus } = useBusiness();
+  const formatCurrency = formatIndianCurrency;
 
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | PurchaseOrderStatus>('all');

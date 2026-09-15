@@ -16,12 +16,14 @@ import {
   FileText
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 import { Supplier, SupplierStatus } from '../../types';
 import { CreatePurchaseOrderModal } from './CreatePurchaseOrderModal';
 import { PurchaseOrdersLedger } from './PurchaseOrdersLedger';
 
 export const SuppliersView: React.FC = () => {
-  const { suppliers, products, purchaseOrders, addSupplier, formatCurrency } = useBusiness();
+  const { suppliers, products, purchaseOrders, addSupplier } = useBusiness();
+  const formatCurrency = formatIndianCurrency;
 
   const [subTab, setSubTab] = useState<'vendors' | 'orders'>('vendors');
   const [search, setSearch] = useState('');

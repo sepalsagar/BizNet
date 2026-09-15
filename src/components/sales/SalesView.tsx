@@ -9,6 +9,7 @@ import {
   ArrowUpDown
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 import { Order, OrderStatus } from '../../types';
 import { CreateOrderModal } from './CreateOrderModal';
 import { ConfirmationModal } from '../common/ConfirmationModal';
@@ -20,9 +21,10 @@ export const SalesView: React.FC = () => {
     totalRevenue, 
     grossProfit, 
     grossMarginPct, 
-    formatCurrency, 
     formatPercent 
   } = useBusiness();
+
+  const formatCurrency = formatIndianCurrency;
 
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | OrderStatus>('all');

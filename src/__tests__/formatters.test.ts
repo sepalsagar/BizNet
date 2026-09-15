@@ -3,6 +3,7 @@ import {
   formatIndianDate,
   formatIndianPhone,
 } from '../utils/formatters';
+import { describe, expect, it } from 'vitest';
 
 describe('formatIndianCurrency', () => {
   it('uses Indian number grouping', () => {

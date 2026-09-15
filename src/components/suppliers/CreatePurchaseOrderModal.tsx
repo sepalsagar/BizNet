@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Plus, Trash2, FileText, AlertCircle, CheckCircle, Truck, DollarSign } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 import { PurchaseOrderStatus } from '../../types';
 
 interface CreatePurchaseOrderModalProps {
@@ -22,7 +23,8 @@ export const CreatePurchaseOrderModal: React.FC<CreatePurchaseOrderModalProps> =
   initialSupplierId,
   onCreated,
 }) => {
-  const { suppliers, products, createPurchaseOrder, formatCurrency } = useBusiness();
+  const { suppliers, products, createPurchaseOrder } = useBusiness();
+  const formatCurrency = formatIndianCurrency;
 
   const [supplierId, setSupplierId] = useState<string>('');
   const [status, setStatus] = useState<PurchaseOrderStatus>('ordered');

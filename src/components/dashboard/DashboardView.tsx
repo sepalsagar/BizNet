@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 
 interface DashboardViewProps {
   onOpenCreateOrder: () => void;
@@ -18,9 +19,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
     outOfStockProducts,
     products,
     orders,
-    setActiveTab, 
-    formatCurrency
+    setActiveTab,
   } = useBusiness();
+
+  const formatCurrency = formatIndianCurrency;
 
   const recentOrders = orders.slice(0, 6);
   const displayInventory = products.slice(0, 6);

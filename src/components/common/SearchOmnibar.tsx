@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Package, Users, ShoppingCart, ArrowRight, X, Sparkles } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 
 interface SearchOmnibarProps {
   isOpen: boolean;
@@ -8,7 +9,8 @@ interface SearchOmnibarProps {
 }
 
 export const SearchOmnibar: React.FC<SearchOmnibarProps> = ({ isOpen, onClose }) => {
-  const { products, customers, orders, setActiveTab, formatCurrency } = useBusiness();
+  const { products, customers, orders, setActiveTab } = useBusiness();
+  const formatCurrency = formatIndianCurrency;
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 

@@ -10,6 +10,7 @@ import {
   MinusCircle
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 import { Product, StockStatus } from '../../types';
 import { ProductModal } from './ProductModal';
 import { ConfirmationModal } from '../common/ConfirmationModal';
@@ -27,9 +28,10 @@ export const InventoryView: React.FC<InventoryViewProps> = ({ onOpenAddProduct }
     totalRetailValuation, 
     lowStockProducts, 
     outOfStockProducts,
-    formatCurrency, 
     settings 
   } = useBusiness();
+
+  const formatCurrency = formatIndianCurrency;
 
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');

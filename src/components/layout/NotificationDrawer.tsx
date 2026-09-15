@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, AlertTriangle, AlertCircle, Package, ShoppingCart, ArrowRight } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 
 interface NotificationDrawerProps {
   isOpen: boolean;
@@ -13,9 +14,10 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({ isOpen, 
     outOfStockProducts, 
     orders, 
     adjustStock, 
-    setActiveTab, 
-    formatCurrency 
+    setActiveTab
   } = useBusiness();
+
+  const formatCurrency = formatIndianCurrency;
 
   if (!isOpen) return null;
 

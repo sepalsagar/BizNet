@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 
 interface CreateOrderModalProps {
   isOpen: boolean;
@@ -13,7 +14,8 @@ interface OrderItemRow {
 }
 
 export const CreateOrderModal: React.FC<CreateOrderModalProps> = ({ isOpen, onClose }) => {
-  const { customers, products, addOrder, formatCurrency, settings } = useBusiness();
+  const { customers, products, addOrder, settings } = useBusiness();
+  const formatCurrency = formatIndianCurrency;
 
   const [customerId, setCustomerId] = useState<string>(customers[0]?.id || '');
   const [channel, setChannel] = useState<'Online' | 'In-Store' | 'Wholesale' | 'B2B'>('In-Store');

@@ -11,9 +11,11 @@ import {
   ShieldAlert
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 
 export const DiscountOptimizer: React.FC = () => {
-  const { products, formatCurrency, formatPercent } = useBusiness();
+  const { products, formatPercent } = useBusiness();
+  const formatCurrency = formatIndianCurrency;
 
   const [selectedProductId, setSelectedProductId] = useState<string>(products[0]?.id || '');
   const [discountPct, setDiscountPct] = useState<number>(15);

@@ -15,6 +15,7 @@ import {
   Check
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 
 interface Message {
   id: string;
@@ -256,7 +257,7 @@ export const AiAdvisorView: React.FC = () => {
     if (p.includes('margin') || p.includes('profit')) {
       return `### Margin Enhancement Strategy\n\nYour current blended gross margin is **${ctx.grossMarginPct.toFixed(1)}%** compared to your company target of **${ctx.targetMarginPct}%**.\n\n**Key Recommendations:**\n1. **Price Adjustment**: Test a +5% to +8% price increase on inelastic items in our Pricing Simulator.\n2. **Supplier Terms**: Leverage your volume with top suppliers to negotiate a 3–5% discount on COGS.\n3. **Prune Low-Margin Promos**: Restrict discounts to items with margins above 50% to prevent profit bleed.`;
     }
-    return `### Strategic Business Assessment\n\nBased on your **$${totalRevenue.toLocaleString()}** in sales volume and **${grossMarginPct.toFixed(1)}% gross margin**, your business is operating healthily. Ensure inventory lead times are monitored so stockouts do not choke order growth.\n\nTry testing our **Pricing Simulator** or **Discount Optimizer** to model your next promotional campaign.`;
+    return `### Strategic Business Assessment\n\nBased on your **${formatIndianCurrency(totalRevenue)}** in sales volume and **${grossMarginPct.toFixed(1)}% gross margin**, your business is operating healthily. Ensure inventory lead times are monitored so stockouts do not choke order growth.\n\nTry testing our **Pricing Simulator** or **Discount Optimizer** to model your next promotional campaign.`;
   };
 
   const handleCopy = (id: string, text: string) => {

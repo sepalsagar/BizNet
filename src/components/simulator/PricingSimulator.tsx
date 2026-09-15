@@ -11,9 +11,11 @@ import {
   Sparkles
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 
 export const PricingSimulator: React.FC = () => {
-  const { products, formatCurrency, formatPercent, settings } = useBusiness();
+  const { products, formatPercent, settings } = useBusiness();
+  const formatCurrency = formatIndianCurrency;
 
   const [selectedProductId, setSelectedProductId] = useState<string>(products[0]?.id || '');
   const [priceChangePct, setPriceChangePct] = useState<number>(10); // default +10% price test

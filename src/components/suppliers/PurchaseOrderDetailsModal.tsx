@@ -14,6 +14,7 @@ import {
   DollarSign
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
+import { formatIndianCurrency } from '../../utils/formatters';
 import { PurchaseOrder, PurchaseOrderStatus } from '../../types';
 
 interface PurchaseOrderDetailsModalProps {
@@ -25,7 +26,8 @@ export const PurchaseOrderDetailsModal: React.FC<PurchaseOrderDetailsModalProps>
   po,
   onClose,
 }) => {
-  const { updatePurchaseOrderStatus, formatCurrency } = useBusiness();
+  const { updatePurchaseOrderStatus } = useBusiness();
+  const formatCurrency = formatIndianCurrency;
 
   if (!po) return null;
 
