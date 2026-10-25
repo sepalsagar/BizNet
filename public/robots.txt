@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://biznet-nine.vercel.app/sitemap.xml
