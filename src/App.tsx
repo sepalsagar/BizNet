@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { BusinessProvider, useBusiness } from './context/BusinessContext';
 import { Sidebar } from './components/layout/Sidebar';
@@ -45,10 +45,18 @@ const SettingsView = React.lazy(() =>
 const AppContent: React.FC = () => {
   const location = useLocation();
   const { isSidebarOpen } = useBusiness();
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem('bizpilot:theme') === 'dark';
+  });
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCreateOrderOpen, setIsCreateOrderOpen] = useState(false);
   const [isAddProductOpen, setIsAddProductOpen] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light';
+    localStorage.setItem('bizpilot:theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   // Expose global omnibar opener
   React.useEffect(() => {
@@ -60,7 +68,7 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-slate-100 font-sans text-slate-800">
+    <div className="flex h-screen w-screen overflow-hidden bg-slate-100 font-sans text-slate-800 transition-colors duration-200">
       {/* Sidebar Navigation */}
       <Sidebar />
 
@@ -74,6 +82,8 @@ const AppContent: React.FC = () => {
           onOpenAddProduct={() => setIsAddProductOpen(true)}
           onToggleNotifications={() => setIsNotificationsOpen(prev => !prev)}
           onOpenOmnibar={() => setIsSearchOpen(true)}
+          isDarkMode={isDarkMode}
+          onToggleDarkMode={() => setIsDarkMode(prev => !prev)}
         />
 
         {/* Scrollable View Canvas with URL Routes */}

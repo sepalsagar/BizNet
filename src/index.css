@@ -21,3 +21,103 @@
     background: #94a3b8;
   }
 }
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+html[data-theme='dark'] body {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+html[data-theme='dark'] .bg-white {
+  background-color: #1e293b;
+}
+
+html[data-theme='dark'] .bg-slate-50,
+html[data-theme='dark'] .bg-slate-50\/80 {
+  background-color: #243247;
+}
+
+html[data-theme='dark'] .bg-slate-100,
+html[data-theme='dark'] .bg-slate-100\/60 {
+  background-color: #0f172a;
+}
+
+html[data-theme='dark'] .text-slate-900 {
+  color: #f8fafc;
+}
+
+html[data-theme='dark'] .text-slate-800 {
+  color: #e2e8f0;
+}
+
+html[data-theme='dark'] .text-slate-700 {
+  color: #cbd5e1;
+}
+
+html[data-theme='dark'] .text-slate-600 {
+  color: #cbd5e1;
+}
+
+html[data-theme='dark'] .text-slate-500,
+html[data-theme='dark'] .text-slate-400 {
+  color: #94a3b8;
+}
+
+html[data-theme='dark'] .border-slate-200,
+html[data-theme='dark'] .border-slate-200\/80,
+html[data-theme='dark'] .border-slate-200\/90 {
+  border-color: #334155;
+}
+
+html[data-theme='dark'] .border-slate-300 {
+  border-color: #475569;
+}
+
+html[data-theme='dark'] .hover\:bg-slate-50:hover,
+html[data-theme='dark'] .hover\:bg-slate-100:hover,
+html[data-theme='dark'] .hover\:bg-slate-100\/60:hover {
+  background-color: #334155;
+}
+
+html[data-theme='dark'] .hover\:text-slate-900:hover,
+html[data-theme='dark'] .hover\:text-slate-800:hover,
+html[data-theme='dark'] .hover\:text-slate-700:hover {
+  color: #f8fafc;
+}
+
+html[data-theme='dark'] .bg-slate-900 {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+html[data-theme='dark'] .hover\:bg-slate-800:hover {
+  background-color: #e2e8f0;
+}
+
+html[data-theme='dark'] .bg-indigo-50 {
+  background-color: #312e81;
+}
+
+html[data-theme='dark'] .text-indigo-600,
+html[data-theme='dark'] .text-indigo-700 {
+  color: #a5b4fc;
+}
+
+html[data-theme='dark'] .bg-amber-50 {
+  background-color: #451a03;
+}
+
+html[data-theme='dark'] .text-amber-700 {
+  color: #fcd34d;
+}
+
+html[data-theme='dark'] .bg-emerald-50 {
+  background-color: #064e3b;
+}
+
+html[data-theme='dark'] .text-emerald-700 {
+  color: #6ee7b7;
+}

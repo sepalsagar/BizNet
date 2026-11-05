@@ -3,7 +3,9 @@ import {
   Search, 
   Plus, 
   Bell, 
-  Sparkles
+  Sparkles,
+  Moon,
+  Sun
 } from 'lucide-react';
 import { useBusiness } from '../../context/BusinessContext';
 
@@ -12,6 +14,8 @@ interface HeaderProps {
   onOpenAddProduct: () => void;
   onToggleNotifications: () => void;
   onOpenOmnibar: () => void;
+  isDarkMode: boolean;
+  onToggleDarkMode: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -19,6 +23,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAddProduct,
   onToggleNotifications,
   onOpenOmnibar,
+  isDarkMode,
+  onToggleDarkMode,
 }) => {
   const { 
     settings, 
@@ -48,9 +54,9 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header 
+    <header
       id="bizpilot-header"
-      className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200/90 bg-white px-6 select-none"
+      className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200/90 bg-white px-6 select-none transition-colors duration-200"
     >
       {/* Page Title & Breadcrumb */}
       <div className="flex items-center gap-4 min-w-0">
@@ -99,7 +105,18 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         )}
 
-        {/* Notification Bell */}
+        {/* Theme toggle */}
+        <button
+          id="toggle-theme-button"
+          onClick={onToggleDarkMode}
+          className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors"
+          title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-pressed={isDarkMode}
+        >
+          {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </button>
+
         <button
           id="header-notifications-btn"
           onClick={onToggleNotifications}
