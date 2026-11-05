@@ -59,7 +59,7 @@ export const Header: React.FC<HeaderProps> = ({
       className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200/90 bg-white px-6 select-none transition-colors duration-200"
     >
       {/* Page Title & Breadcrumb */}
-      <div className="flex items-center gap-4 min-w-0">
+      <div className="flex min-w-0 flex-1 items-center gap-4">
         <div className="min-w-0">
           <h1 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2 truncate">
             {getPageTitle()}
@@ -71,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Center Search Trigger */}
-      <div className="flex-1 max-w-md mx-6 hidden md:block">
+      <div className="mx-4 hidden w-full max-w-xs lg:block xl:mx-6">
         <div 
           onClick={onOpenOmnibar}
           id="header-omnibar-trigger"
@@ -86,9 +86,9 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Right Controls & Quick Actions */}
-      <div className="flex items-center gap-2 shrink-0">
+      <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
         {/* Live System Indicator */}
-        <div className="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200/70 text-[11px] font-medium">
+        <div className="hidden 2xl:flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200/70 text-[11px] font-medium">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>Operations Active</span>
         </div>

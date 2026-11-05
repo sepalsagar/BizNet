@@ -1,8 +1,30 @@
 @import "tailwindcss";
 
 @layer base {
+  html {
+    background: #f8fafc;
+  }
+
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-width: 320px;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  a:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
   }
   
   /* Custom thin scrollbar for dashboard tables and lists */
@@ -22,6 +44,20 @@
   }
 }
 
+main .rounded-xl.bg-white {
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px rgb(15 23 42 / 0.03);
+}
+
+main table tbody tr {
+  transition: background-color 150ms ease;
+}
+
+main input,
+main select,
+main textarea {
+  color: #1e293b;
+}
+
 html[data-theme='dark'] {
   color-scheme: dark;
 }
@@ -29,6 +65,10 @@ html[data-theme='dark'] {
 html[data-theme='dark'] body {
   background: #0f172a;
   color: #e2e8f0;
+}
+
+html[data-theme='dark'] {
+  background: #0f172a;
 }
 
 html[data-theme='dark'] .bg-white {
@@ -43,6 +83,26 @@ html[data-theme='dark'] .bg-slate-50\/80 {
 html[data-theme='dark'] .bg-slate-100,
 html[data-theme='dark'] .bg-slate-100\/60 {
   background-color: #0f172a;
+}
+
+html[data-theme='dark'] .bg-blue-50 {
+  background-color: #172554;
+}
+
+html[data-theme='dark'] .text-blue-700 {
+  color: #93c5fd;
+}
+
+html[data-theme='dark'] .bg-rose-50 {
+  background-color: #4c0519;
+}
+
+html[data-theme='dark'] .text-rose-700 {
+  color: #fda4af;
+}
+
+html[data-theme='dark'] .bg-slate-100 {
+  color: #cbd5e1;
 }
 
 html[data-theme='dark'] .text-slate-900 {
@@ -76,10 +136,47 @@ html[data-theme='dark'] .border-slate-300 {
   border-color: #475569;
 }
 
+html[data-theme='dark'] .border-slate-100,
+html[data-theme='dark'] .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #263449;
+}
+
 html[data-theme='dark'] .hover\:bg-slate-50:hover,
 html[data-theme='dark'] .hover\:bg-slate-100:hover,
 html[data-theme='dark'] .hover\:bg-slate-100\/60:hover {
   background-color: #334155;
+}
+
+html[data-theme='dark'] main input,
+html[data-theme='dark'] main select,
+html[data-theme='dark'] main textarea {
+  background-color: #172033;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+html[data-theme='dark'] main input::placeholder,
+html[data-theme='dark'] main textarea::placeholder {
+  color: #64748b;
+}
+
+html[data-theme='dark'] main .rounded-xl.bg-white {
+  box-shadow: 0 1px 2px rgb(2 6 23 / 0.32), 0 12px 28px rgb(2 6 23 / 0.2);
+}
+
+html[data-theme='dark'] main .bg-slate-50\/75 {
+  background-color: #172033;
+}
+
+html[data-theme='dark'] main .text-slate-300 {
+  color: #cbd5e1;
+}
+
+@media (max-width: 1023px) {
+  #bizpilot-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 html[data-theme='dark'] .hover\:text-slate-900:hover,
